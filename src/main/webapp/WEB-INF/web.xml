@@ -8,5 +8,15 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
-        </welcome-file-list>
-    </web-app>
+    </welcome-file-list>
+    <servlet>
+    	<description>Login Servlet</description>
+    	<display-name>LoginController</display-name>
+    	<servlet-name>LoginController</servlet-name>
+    	<servlet-class>com.dtte.portal.portal.obiee.LoginController</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>LoginController</servlet-name>
+    	<url-pattern>/LoginController</url-pattern>
+  	</servlet-mapping>
+</web-app>
