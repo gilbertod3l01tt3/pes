@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-    <display-name>portal.obiee</display-name>
+    <display-name>Portal OBIEE</display-name>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+    <context-param>
+		<param-name>authority</param-name>
+		<param-value>https://login.microsoftonline.com/</param-value>
+	</context-param>
+	<context-param>
+		<param-name>tenant</param-name>
+		<param-value>deloittesep.onmicrosoft.com</param-value>
+	</context-param>
+    
     <servlet>
     	<description>Login Servlet</description>
     	<display-name>LoginController</display-name>
@@ -17,6 +23,45 @@
   	</servlet>
   	<servlet-mapping>
     	<servlet-name>LoginController</servlet-name>
-    	<url-pattern>/LoginController</url-pattern>
+    	<url-pattern>/index</url-pattern>
   	</servlet-mapping>
+  	<servlet-mapping>
+    	<servlet-name>LoginController</servlet-name>
+    	<url-pattern>/home</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+   		<servlet-name>ManejadorError</servlet-name>
+        <servlet-class>com.dtte.portal.portal.obiee.ManejadorError</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+        <servlet-name>ManejadorError</servlet-name>
+        <url-pattern>/ManejadorError</url-pattern>
+	</servlet-mapping>
+	<error-page>
+    	<error-code>404</error-code>
+    	<location>/ManejadorError</location>
+	</error-page>
+	<error-page>
+    	<error-code>403</error-code>
+    	<location>/ManejadorError</location>
+	</error-page>
+  	<filter>
+		<filter-name>BasicFilter</filter-name>
+		<filter-class>com.dtte.portal.portal.obiee.BasicFilter</filter-class>
+		<init-param>
+			<param-name>client_id</param-name>
+			<param-value>1ec7ed6e-64c7-43ae-9a9b-62954b86b415</param-value>
+		</init-param>
+		<init-param>
+			<param-name>secret_key</param-name>
+			<param-value>DK/HFXGEvkS+TUXkWDLBgT6AL2yLJuaZQ2CaQqiY5pU=</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>BasicFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 </web-app>

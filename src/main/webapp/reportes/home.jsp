@@ -18,10 +18,12 @@
     </head>
 	<body>  
 		<div class="row">
-    		<div class="col-sm-6">
+    		<div class="col-sm-3">
       			<div class="panel panel-primary">
       				<div class="panel-heading">Selecci&oacute;n de Reportes</div>
       				<div class="panel-body">
+      					<h3>Bienvenido: <strong>${userInfo.givenName}</strong></h3>
+      					<h4>Rol:<strong>${rol}</strong></h4>
       					<p><strong>Seleccione el reporte que desea visualizar.</strong></p>
       					<select>
       						<option value="0">Selecione una opci&oacute;n</option>
@@ -34,7 +36,7 @@
     			</div>
     		</div>
     
-    		<div class="col-sm-6">      			
+    		<div class="col-sm-9">      			
       			<div class="panel panel-primary">
       				<div class="panel-heading">Reporte Generado</div>
       				<div class="panel-body">

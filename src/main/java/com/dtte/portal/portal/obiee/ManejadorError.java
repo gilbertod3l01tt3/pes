@@ -37,19 +37,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import com.microsoft.aad.adal4j.AuthenticationResult;
 
-public class LoginController  extends HttpServlet{
+public class ManejadorError  extends HttpServlet{
 	
 	/**
 	 * Default serialVersion
 	 */
 	private static final long serialVersionUID = 1L;
-	@Override 
-	protected void doGet(HttpServletRequest request,HttpServletResponse response) 
-	throws IOException,ServletException{
-	    this.doPost(request,response);
-	}
-	@Override 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
 		HttpSession session = request.getSession();
         AuthenticationResult result = (AuthenticationResult) session.getAttribute(AuthHelper.PRINCIPAL_SESSION_NAME);
@@ -57,54 +52,18 @@ public class LoginController  extends HttpServlet{
             request.setAttribute("error", new Exception("AuthenticationResult not found in session."));
             response.sendRedirect("error.jsp");
         } else {
-            String data;
+            //String data;
             try {
                 String tenant = session.getServletContext().getInitParameter("tenant");
-                data = getRolFromGraph(result, tenant);
+                
                 request.setAttribute("tenant", tenant);
-                request.setAttribute("rol", data);
-                request.setAttribute("userInfo", result.getUserInfo());
+                request.setAttribute("error", "Pagina no encontrada");
+                //request.setAttribute("userInfo", result.getUserInfo());
             } catch (Exception e) {
             	request.setAttribute("error", e);
             	request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
         }
-        request.getRequestDispatcher("/reportes/home.jsp").forward(request, response);
+        request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
-
-    private String getRolFromGraph(AuthenticationResult result, String tenant) throws Exception {
-        URL url = new URL(null,String.format("https://graph.windows.net/%s/users/%s?api-version=2013-04-05", 
-        		tenant,
-        		result.getUserInfo().getUniqueId(),
-                result.getAccessToken()), new sun.net.www.protocol.https.Handler());
-
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        // Set the appropriate header fields in the request header.
-        conn.setRequestProperty("api-version", "2013-04-05");
-        conn.setRequestProperty("Authorization", result.getAccessToken());
-        conn.setRequestProperty("Accept", "application/json;odata=minimalmetadata");
-        String goodRespStr = HttpClientHelper.getResponseStringFromConn(conn, true);
-        // logger.info("goodRespStr ->" + goodRespStr);
-        int responseCode = conn.getResponseCode();
-        JSONObject response = HttpClientHelper.processGoodRespStr(responseCode, goodRespStr);
-        //JSONArray users;
-        User user = new User();
-        JSONObject JSONuser = JSONHelper.fetchDirectoryObjectJSONObject(response);
-        JSONHelper.convertJSONObjectToDirectoryObject(JSONuser, user);
-        return user.jobTitle;
-        
-        //users = JSONHelper.fetchDirectoryObjectJSONArray(response);
-        
-        /*StringBuilder builder = new StringBuilder();
-        User user;
-        for (int i = 0; i < users.length(); i++) {
-            JSONObject thisUserJSONObject = users.optJSONObject(i);
-            user = new User();
-            JSONHelper.convertJSONObjectToDirectoryObject(thisUserJSONObject, user);
-            builder.append(user.displayName + "<br/>");
-        }
-        return builder.toString();
-        */
-    }
-
 }
