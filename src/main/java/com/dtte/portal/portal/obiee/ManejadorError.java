@@ -52,17 +52,7 @@ public class ManejadorError  extends HttpServlet{
             request.setAttribute("error", new Exception("AuthenticationResult not found in session."));
             response.sendRedirect("error.jsp");
         } else {
-            //String data;
-            try {
-                String tenant = session.getServletContext().getInitParameter("tenant");
-                
-                request.setAttribute("tenant", tenant);
                 request.setAttribute("error", "Pagina no encontrada");
-                //request.setAttribute("userInfo", result.getUserInfo());
-            } catch (Exception e) {
-            	request.setAttribute("error", e);
-            	request.getRequestDispatcher("/error.jsp").forward(request, response);
-            }
         }
         request.getRequestDispatcher("/error.jsp").forward(request, response);
     }

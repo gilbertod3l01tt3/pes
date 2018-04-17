@@ -42,7 +42,7 @@
       				<div class="panel-body">
       					<!-- <a href='http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=%2Fshared%2FCarpeta%20de%20Pruebas%2F_portal%2FPanelPruebaIntegracion&Page=Estados&Action=Print&NQUser=usr_Estado&NQPassword=usr_3st4d0'>Reporte</a> 
       					<iframe name="ventanaReporte" src="http://www.bing.com/"></iframe>-->
-      					<iframe id="ventanaReporte"></iframe>
+      					<iframe width="500" height="180" id="ventanaReporte"></iframe>
 						<!-- <object type="text/html" data="http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=%2Fshared%2FCarpeta%20de%20Pruebas%2F_portal%2FPanelPruebaIntegracion&Page=Estados&Action=Print&NQUser=usr_Estado&NQPassword=usr_3st4d0" width="900" height="900"></object>-->       					
 					</div>
       			</div>
