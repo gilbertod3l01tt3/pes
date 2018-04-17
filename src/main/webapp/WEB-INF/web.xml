@@ -33,21 +33,13 @@
   	<servlet>
    		<servlet-name>ManejadorError</servlet-name>
         <servlet-class>com.dtte.portal.portal.obiee.ManejadorError</servlet-class>
-	</servlet>
-	
+	</servlet>	
 	<servlet-mapping>
         <servlet-name>ManejadorError</servlet-name>
         <url-pattern>/ManejadorError</url-pattern>
 	</servlet-mapping>
-	<error-page>
-    	<error-code>404</error-code>
-    	<location>/ManejadorError</location>
-	</error-page>
-	<error-page>
-    	<error-code>403</error-code>
-    	<location>/ManejadorError</location>
-	</error-page>
-  	<filter>
+	
+	<filter>
 		<filter-name>BasicFilter</filter-name>
 		<filter-class>com.dtte.portal.portal.obiee.BasicFilter</filter-class>
 		<init-param>
@@ -63,5 +55,15 @@
 		<filter-name>BasicFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<error-page>
+    	<error-code>404</error-code>
+    	<location>/ManejadorError</location>
+	</error-page>
+	<error-page>
+    	<error-code>403</error-code>
+    	<location>/ManejadorError</location>
+	</error-page>
+  	
 	
 </web-app>
