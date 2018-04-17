@@ -19,7 +19,7 @@
     	<description>Login Servlet</description>
     	<display-name>LoginController</display-name>
     	<servlet-name>LoginController</servlet-name>
-    	<servlet-class>com.dtte.portal.portal.obiee.LoginController</servlet-class>
+    	<servlet-class>com.dtte.portal.obiee.LoginController</servlet-class>
   	</servlet>
   	<servlet-mapping>
     	<servlet-name>LoginController</servlet-name>
@@ -32,16 +32,25 @@
   	
   	<servlet>
    		<servlet-name>ManejadorError</servlet-name>
-        <servlet-class>com.dtte.portal.portal.obiee.ManejadorError</servlet-class>
+        <servlet-class>com.dtte.portal.obiee.ManejadorError</servlet-class>
 	</servlet>	
 	<servlet-mapping>
         <servlet-name>ManejadorError</servlet-name>
         <url-pattern>/ManejadorError</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+   		<servlet-name>Administracion</servlet-name>
+        <servlet-class>com.dtte.portal.obiee.administracion.AdministracionController</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+        <servlet-name>Administracion</servlet-name>
+        <url-pattern>/Administracion</url-pattern>
+	</servlet-mapping>
+	
 	<filter>
 		<filter-name>BasicFilter</filter-name>
-		<filter-class>com.dtte.portal.portal.obiee.BasicFilter</filter-class>
+		<filter-class>com.dtte.portal.obiee.BasicFilter</filter-class>
 		<init-param>
 			<param-name>client_id</param-name>
 			<param-value>e3245727-c95d-45b8-8cc7-abd8041d3b73</param-value>

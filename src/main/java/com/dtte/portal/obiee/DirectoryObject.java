@@ -22,16 +22,51 @@
  // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  // THE SOFTWARE.
  ******************************************************************************/
-package com.dtte.portal.portal.obiee;
+package com.dtte.portal.obiee;
 
-public final class AuthParameterNames {
+/**
+ * @author Azure Active Directory Contributor
+ *
+ */
+public abstract class DirectoryObject {
+	
+	public DirectoryObject() {
+		super();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public abstract String getObjectId();
+	
+	/**
+	 * @param objectId
+	 */
+	public abstract void setObjectId(String objectId);
 
-    private AuthParameterNames() {
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public abstract String getObjectType();
 
-    public static String ERROR = "error";
-    public static String ERROR_DESCRIPTION = "error_description";
-    public static String ERROR_URI = "error_uri";
-    public static String ID_TOKEN = "id_token";
-    public static String CODE = "code";
+	/**
+	 * 
+	 * @param objectType
+	 */
+	public abstract void setObjectType(String objectType);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public abstract String getDisplayName();
+
+	/**
+	 * 
+	 * @param displayName
+	 */
+	public abstract void setDisplayName(String displayName);
+
 }

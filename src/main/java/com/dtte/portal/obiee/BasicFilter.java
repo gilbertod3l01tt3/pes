@@ -22,7 +22,7 @@
  // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  // THE SOFTWARE.
  ******************************************************************************/
-package com.dtte.portal.portal.obiee;
+package com.dtte.portal.obiee;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
