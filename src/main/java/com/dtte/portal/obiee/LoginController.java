@@ -63,6 +63,7 @@ public class LoginController  extends HttpServlet{
                 String tenant = session.getServletContext().getInitParameter("tenant");
                 data = getRolFromGraph(result, tenant);
                 request.setAttribute("rol", data);
+                request.setAttribute("userInfo",result.getUserInfo());
             } catch (Exception e) {
             	request.setAttribute("error", e);
             	request.getRequestDispatcher("/error.jsp").forward(request, response);
