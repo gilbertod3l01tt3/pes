@@ -20,10 +20,10 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dtte.portal.obiee.persistencia">
+<mapper namespace="com.dtte.portal.obiee.persistencia.PortalbiConfigobieeMapper">
 
 	<select id="getConfig" resultType="com.dtte.portal.obiee.persistencia.PortalbiConfigobiee">
-		select * from users where idConfigobiee = #{id}
+		select * from PORTALBI_CONFIGOBIEE where ID_CONFIGOBIEE= #{id}
 	</select>
 
 </mapper>

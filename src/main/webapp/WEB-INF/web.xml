@@ -39,15 +39,6 @@
         <url-pattern>/ManejadorError</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
-   		<servlet-name>Administracion</servlet-name>
-        <servlet-class>com.dtte.portal.obiee.administracion.AdministracionController</servlet-class>
-	</servlet>	
-	<servlet-mapping>
-        <servlet-name>Administracion</servlet-name>
-        <url-pattern>/Administracion</url-pattern>
-	</servlet-mapping>
-	
 	<filter>
 		<filter-name>BasicFilter</filter-name>
 		<filter-class>com.dtte.portal.obiee.BasicFilter</filter-class>
@@ -73,6 +64,18 @@
     	<error-code>403</error-code>
     	<location>/ManejadorError</location>
 	</error-page>
-  	
+  	<context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
 	
 </web-app>
