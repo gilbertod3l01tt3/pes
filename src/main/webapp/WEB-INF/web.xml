@@ -12,7 +12,7 @@
 	</context-param>
 	<context-param>
 		<param-name>tenant</param-name>
-		<param-value>siged.sep.gob.mx</param-value>
+		<param-value>deloittesep.onmicrosoft.com</param-value>
 	</context-param>
     
     <servlet>
@@ -44,11 +44,11 @@
 		<filter-class>com.dtte.portal.obiee.BasicFilter</filter-class>
 		<init-param>
 			<param-name>client_id</param-name>
-			<param-value>e3245727-c95d-45b8-8cc7-abd8041d3b73</param-value>
+			<param-value>1ec7ed6e-64c7-43ae-9a9b-62954b86b415</param-value>
 		</init-param>
 		<init-param>
 			<param-name>secret_key</param-name>
-			<param-value>wvXHrgPIEY2luVKAGubdqS/Q2TtvGHolBUgy0xER+jc=</param-value>
+			<param-value>DK/HFXGEvkS+TUXkWDLBgT6AL2yLJuaZQ2CaQqiY5pU=</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
