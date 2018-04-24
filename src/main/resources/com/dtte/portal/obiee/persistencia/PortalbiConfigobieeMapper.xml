@@ -22,8 +22,8 @@
 
 <mapper namespace="com.dtte.portal.obiee.persistencia.PortalbiConfigobieeMapper">
 
-	<select id="getConfig" resultType="com.dtte.portal.obiee.persistencia.PortalbiConfigobiee">
-		select * from PORTALBI_CONFIGOBIEE where ID_CONFIGOBIEE= #{id}
+	<select id="getConfig" parameterType="int" resultType="com.dtte.portal.obiee.persistencia.PortalbiConfigobiee">
+		select * from PORTALBI_CONFIGOBIEE WHERE ID_CONFIGOBIEE = 1
 	</select>
 
 </mapper>

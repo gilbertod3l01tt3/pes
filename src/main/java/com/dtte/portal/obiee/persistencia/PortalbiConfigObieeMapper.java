@@ -4,5 +4,5 @@ import org.mybatis.cdi.Mapper;
 
 @Mapper
 public interface PortalbiConfigObieeMapper {
-	PortalbiConfigobiee getConfig(long id);
+	PortalbiConfigobiee getConfig();
 }

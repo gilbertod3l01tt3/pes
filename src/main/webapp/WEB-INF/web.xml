@@ -38,7 +38,6 @@
         <servlet-name>ManejadorError</servlet-name>
         <url-pattern>/ManejadorError</url-pattern>
 	</servlet-mapping>
-	
 	<filter>
 		<filter-name>BasicFilter</filter-name>
 		<filter-class>com.dtte.portal.obiee.BasicFilter</filter-class>
@@ -77,5 +76,21 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
-	
+	<servlet>
+		<servlet-name>Administracion</servlet-name>
+		<servlet-class>com.dtte.portal.obiee.administracion.AdministracionController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Administracion</servlet-name>
+		<url-pattern>/administracion</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>adminConfiguracion</servlet-name>
+		<servlet-class>com.dtte.portal.obiee.administracion.ConfiguracionController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>adminConfiguracion</servlet-name>
+		<url-pattern>/configuracion</url-pattern>
+	</servlet-mapping>
+
 </web-app>

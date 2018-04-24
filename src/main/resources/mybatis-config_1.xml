@@ -42,7 +42,8 @@
     <environment id="development">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
-        <property name="driver" value="oracle.jdbc.OracleDriver"/>
+        <!--  <property name="driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>-->
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>        
         <property name="url" value="jdbc:oracle:thin:@172.31.50.19:1521/DESSIGED"/>
         <!-- <property name="url" value="172.31.50.19"/>-->
         <property name="username" value="desarrollodeloitte3"/>

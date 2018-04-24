@@ -7,9 +7,6 @@
 <title>Mo&acute;dulo de Administraci&oacute;n</title>
 </head>
 <body>
-	A continuaci&oacute;n se presenta el m&oacute;dulo de administraci&oacute;n de reportes:
-	<p>
-      User (Request Scoped): #{testBean.portalbiConfigobiee.idConfigobiee} - #{testBean.portalbiConfigobiee.parametro}
-    </p>
+	A continuaci&oacute;n se presenta el m&oacute;dulo de administraci&oacute;n de reportes:	
 </body>
 </html>
