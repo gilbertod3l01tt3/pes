@@ -31,7 +31,7 @@
 			});
 			$(document).ready(function() {
 				$('#config').click(function(event) {					
-					$.get('configuracion/adminConfiguracion', {
+					$.get('configuracion?accion=', {
 					}, function(responseText) {
 						$('#selector').html(responseText);
 					});
@@ -49,6 +49,9 @@
     </head>
 	<body>  
 	<div class="container">
+	</br>
+	</br>
+	</br>
 		<div class="row">
 		  <div class="col-xs-6 col-md-6">
 		  	<input type="button" id="roles" class="btn btn-primary btn-lg btn-block" onclick="" value="Configurar Roles"/>
@@ -66,29 +69,5 @@
 		  </div>
 		</div>
 	</div>
-	
-		<div class="row">
-    		<div class="col-sm-3">
-      			<div class="panel panel-primary">
-      				<div class="panel-heading">Selecci&oacute;n de Reportes</div>
-      				<div class="panel-body">
-      					<h3>Bienvenido: <strong>${userInfo.givenName}</strong></h3>
-      					<h4>Rol:<strong>${rol}</strong></h4>
-      					<p><strong>Seleccione el reporte que desea visualizar.</strong></p>
-      					<select>
-      						<option value="0">Selecione una opci&oacute;n</option>
-      						<option value="123">Reporte de Integraci&oacute;n</option>
-      					</select>
-      					     					
-						<!-- <a href='http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=%2Fshared%2FCarpeta%20de%20Pruebas%2F_portal%2FPanelPruebaIntegracion&Page=Estados&Action=Print&NQUser=usr_Estado&NQPassword=usr_3st4d0' target="ventanaReporte">Reporte</a>-->
-						<input type="button" class="btn btn-primary" onclick="setURL('http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=%2Fshared%2FCarpeta%20de%20Pruebas%2F_portal%2FPanelPruebaIntegracion&Page=Estados&Action=Print&NQUser=usr_Estado&NQPassword=usr_3st4d0')" value="Consultar"/>
-						<input type="button" id="submit" class="btn btn-primary" onclick="" value="Listado de reportes"/>
-						<div id="selector">
-							
-						</div>						
-					</div>      					
-    			</div>
-    		</div>
-  		</div>
-     </body>
+	</body>
 </html>

@@ -61,13 +61,13 @@ public class ConfiguracionController extends HttpServlet {
 	
 			
 			
-			private void insert(HttpServletRequest request, HttpServletResponse response) {
+			private void insert(HttpServletRequest request, HttpServletResponse response) throws IOException {
 				String parametro = request.getParameter("parametro");
 				String valor = request.getParameter("valor");
 				PORTALBI_CONFIGOBIEE newConfig=new PORTALBI_CONFIGOBIEE();
 				newConfig.setParametro(parametro);
 				newConfig.setValor(valor);
-				new BookServiceImpl().createBook(newBook);
+				//new BookServiceImpl().createBook(newBook);
 				response.sendRedirect("/administracion/configuracionGeneral.jsp");
 			}
 

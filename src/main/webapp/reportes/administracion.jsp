@@ -8,5 +8,7 @@
 </head>
 <body>
 	A continuaci&oacute;n se presenta el m&oacute;dulo de administraci&oacute;n de reportes:	
+	
+	
 </body>
 </html>
