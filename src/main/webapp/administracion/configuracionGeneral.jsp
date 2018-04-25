@@ -10,9 +10,6 @@
 		<h1>Configuraci&oacute;n de par&aacute;metros en general</h1>
         <h2>
         	<a href="configuracion?accion=new">Agregar nuevo par&aacute;metro</a>
-        	&nbsp;&nbsp;&nbsp;
-        	<a href="list">Listar par&aacute;metros</a>
-        	
         </h2>
 	</center>
     <div align="center">
