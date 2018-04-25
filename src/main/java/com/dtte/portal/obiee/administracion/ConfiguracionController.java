@@ -1,6 +1,7 @@
 package com.dtte.portal.obiee.administracion;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -28,14 +29,16 @@ public class ConfiguracionController extends HttpServlet {
 
 		String actionFromWeb = request.getServletPath();
 		System.out.println("actionFromWeb: " + actionFromWeb);
+
 		if (!actionFromWeb.equals("/configuracion"))
 			throw new ServletException("Error en el llamado");
+
 		try {
-			// Obteniendo el parametro de accion
 			String accion = request.getParameter("accion");
 			System.out.println("accion: " + accion);
 
 			switch (accion) {
+
 			case "new":
 				newForm(request, response);
 				break;
@@ -54,13 +57,29 @@ public class ConfiguracionController extends HttpServlet {
 			case "listar":
 				listarConfiguraciones(request, response);
 				break;
+			case "consultar":
+				consultarParametro(request, response);
+				break;
 			default:
 				listarConfiguraciones(request, response);
 				break;
-			}			
-		} catch (SQLException e) {			
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void consultarParametro(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String parametroPrueba = "servidor";
+		response.setContentType("text/html; charset=iso-8859-1");
+		String valor = Implementacion.ObtainValor(parametroPrueba);
+		PrintWriter out = response.getWriter();
+		out.println("Esto es una consulta de valor a la DB");
+		out.println("</br>");
+		out.println("Valores usando jdbc ");
+		out.println("Parametro: " + parametroPrueba);
+		out.println("Valor: " + valor);
+
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -71,18 +90,18 @@ public class ConfiguracionController extends HttpServlet {
 		response.sendRedirect("configuracion?accion=listar");
 	}
 
-	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NumberFormatException, SQLException {
+	private void edit(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, NumberFormatException {
 		String idConfigobiee = request.getParameter("id");
 		System.out.println("idConfigobiee: " + idConfigobiee);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/administracion/EditarConfiguracionGeneral.jsp");
-		PORTALBI_CONFIGOBIEE newConfig=Implementacion.getConfiguration(Long.valueOf(idConfigobiee));		
+		PORTALBI_CONFIGOBIEE newConfig = Implementacion.getConfiguration(Long.valueOf(idConfigobiee));
 		request.setAttribute("configuracion", newConfig);
 		dispatcher.forward(request, response);
 
 	}
 
-	private void insert(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, SQLException, ServletException {
+	private void insert(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String parametro = request.getParameter("parametro");
 		String valor = request.getParameter("valor");
 		PORTALBI_CONFIGOBIEE newConfig = new PORTALBI_CONFIGOBIEE();

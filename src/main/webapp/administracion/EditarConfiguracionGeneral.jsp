@@ -40,7 +40,7 @@
                 <th>Identificador: </th>
                 <td>
                 	<input type="text" name="id" size="10"
-                			value="<c:out value='${configuracion.idConfigobiee}' />"
+                			value="<c:out value='${configuracion.idConfigobiee}' readonly="readonly"/>"
                 		/>
                 </td>
             </tr>
