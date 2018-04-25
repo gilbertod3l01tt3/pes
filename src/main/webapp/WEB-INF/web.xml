@@ -91,13 +91,5 @@
 	<servlet-mapping>
 		<servlet-name>adminConfiguracion</servlet-name>
 		<url-pattern>/configuracion</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>Selector</servlet-name>
-		<servlet-class>com.dtte.portal.obiee.administracion.SelectorController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Selector</servlet-name>
-		<url-pattern>/selector</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>	
 </web-app>

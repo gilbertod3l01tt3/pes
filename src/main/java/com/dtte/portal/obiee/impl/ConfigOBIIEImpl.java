@@ -24,12 +24,7 @@ public class ConfigOBIIEImpl implements ConfigOBIIEDAO {
 				long id = resultSet.getLong("ID_CONFIGOBIEE");
 				String parametro = resultSet.getString("PARAMETRO");
 				String valor = resultSet.getString("VALOR");
-				// System.out.println("id: " + id);
 				PORTALBI_CONFIGOBIEE config = new PORTALBI_CONFIGOBIEE(id, parametro, valor);
-				// System.out.println("ID_CONFIGOBIEE: " +
-				// config.getIdConfigobiee().toString());
-				// System.out.println("PARAMETRO: " + config.getParametro());
-				// System.out.println("VALOR: " + config.getValor());
 				listConfig.add(config);
 			}
 		} catch (Exception e) {
@@ -141,6 +136,10 @@ public class ConfigOBIIEImpl implements ConfigOBIIEDAO {
 			System.out.println("Excepcion al borrar registro" + e);
 		}
 		return bandera;
+	}
+	
+	public String ObtainParameter() {
+		
 	}
 
 }

@@ -9,6 +9,9 @@
 	<center>
 		<h1>Configuraci&oacute;n de par&aacute;metros en general</h1>
         <h2>
+        	<a href="administracion">Regresar a m&oacute;dulo de administraci&oacute;n</a>
+        </h2>
+        <h2>
         	<a href="configuracion?accion=new">Agregar nuevo par&aacute;metro</a>
         </h2>
 	</center>
