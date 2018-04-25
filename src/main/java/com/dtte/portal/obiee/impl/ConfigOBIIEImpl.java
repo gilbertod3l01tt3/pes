@@ -123,5 +123,24 @@ public class ConfigOBIIEImpl implements ConfigOBIIEDAO {
 		}
 		return bandera;
 	}
+	
+	@Override
+	public boolean delete(Long identificador) {
+		boolean bandera = false;
+		String sql = "delete from PORTALBI_CONFIGOBIEE where ID_CONFIGOBIEE=?";
+
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.PreparedStatement ps = connection.prepareStatement(sql);) {
+
+			System.out.println("Borrando registro de configOBIEE");
+			ps.setLong(1, identificador);			
+
+			bandera = ps.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Excepcion al borrar registro" + e);
+		}
+		return bandera;
+	}
 
 }

@@ -16,4 +16,6 @@ public interface ConfigOBIIEDAO {
 
 	PORTALBI_CONFIGOBIEE getConfiguration(long ID_CONFIGOBIEE) throws SQLException;
 
+	boolean delete(Long identificador);
+
 }

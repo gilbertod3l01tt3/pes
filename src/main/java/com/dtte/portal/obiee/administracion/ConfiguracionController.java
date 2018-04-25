@@ -57,26 +57,24 @@ public class ConfiguracionController extends HttpServlet {
 			default:
 				listarConfiguraciones(request, response);
 				break;
-			}
-			// listarConfiguraciones(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			}			
+		} catch (SQLException e) {			
 			e.printStackTrace();
 		}
 	}
 
-	private void delete(HttpServletRequest request, HttpServletResponse response) {
-		String identificador = request.getParameter("idconfig");
-
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String identificador = request.getParameter("id");
+		System.out.println("Parámetro a borrar " + identificador);
+		boolean estatusBorrado = Implementacion.delete(Long.valueOf(identificador));
+		System.out.println("Estatus de borrado " + estatusBorrado);
+		response.sendRedirect("configuracion?accion=listar");
 	}
 
 	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NumberFormatException, SQLException {
 		String idConfigobiee = request.getParameter("id");
 		System.out.println("idConfigobiee: " + idConfigobiee);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/administracion/EditarConfiguracionGeneral.jsp");
-		// Ir por objeto
-		//PORTALBI_CONFIGOBIEE newConfig = new PORTALBI_CONFIGOBIEE();
-		//newConfig.setParametro("test");
 		PORTALBI_CONFIGOBIEE newConfig=Implementacion.getConfiguration(Long.valueOf(idConfigobiee));		
 		request.setAttribute("configuracion", newConfig);
 		dispatcher.forward(request, response);
