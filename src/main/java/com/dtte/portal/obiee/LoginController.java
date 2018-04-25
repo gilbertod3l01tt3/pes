@@ -94,14 +94,14 @@ public class LoginController  extends HttpServlet{
     //return user.jobTitle;
     
     groups = JSONHelper.fetchDirectoryObjectJSONArray(response);
-    System.out.println(groups.toString());
+    
     StringBuilder builder = new StringBuilder();
     
     for (int i = 0; i < groups.length(); i++) {
         JSONObject thisGroupJSONObject = groups.optJSONObject(i);
         //user = new User();
         //JSONHelper.convertJSONObjectToDirectoryObject(thisGroupJSONObject, user);
-        builder.append(thisGroupJSONObject.getString("displayName")+ "<br/>");
+        builder.append(thisGroupJSONObject.getString("displayName")+ ",");
     }
     return builder.toString();
    }
