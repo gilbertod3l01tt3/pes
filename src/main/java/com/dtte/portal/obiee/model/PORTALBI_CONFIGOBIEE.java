@@ -9,7 +9,7 @@ public class PORTALBI_CONFIGOBIEE {
     public PORTALBI_CONFIGOBIEE() {
     }
 
-    public PORTALBI_CONFIGOBIEE(Long idConfigobiee, String parametro,
+	public PORTALBI_CONFIGOBIEE(Long idConfigobiee, String parametro,
                                String valor) {
         this.idConfigobiee = idConfigobiee;
         this.parametro = parametro;

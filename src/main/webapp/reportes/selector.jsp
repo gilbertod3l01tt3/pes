@@ -31,7 +31,7 @@
 			});
 			$(document).ready(function() {
 				$('#config').click(function(event) {					
-					$.get('configuracion?accion=', {
+					$.get('configuracion?accion=listar', {
 					}, function(responseText) {
 						$('#selector').html(responseText);
 					});

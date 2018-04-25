@@ -33,9 +33,17 @@
             		</c:if>
             	</h2>
             </caption>
-        		<c:if test="${configuracion != null}">
+        		<!--<c:if test="${configuracion != null}">
         			<input type="hidden" name="id" value="<c:out value='${configuracion.idConfigobiee}' />" />
-        		</c:if>            
+        		</c:if>-->            
+             <tr>
+                <th>Identificador: </th>
+                <td>
+                	<input type="text" name="id" size="10"
+                			value="<c:out value='${configuracion.idConfigobiee}' />"
+                		/>
+                </td>
+            </tr>
             <tr>
                 <th>Par&aacute;metro: </th>
                 <td>
