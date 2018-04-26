@@ -7,28 +7,28 @@
 </head>
 <body>
 	<center>
-		<h1>Configuraci&oacute;n de par&aacute;metros en general</h1>
+		<h1>Configuraci&oacute;n de Roles</h1>
         <h2>
         	<!-- <a href="new">Agregar Configuraci&oacute;n</a>
         	&nbsp;&nbsp;&nbsp;-->
-        	<a href="configuracion?accion=">Listar configuraciones</a>
+        	<a href="configuracionroles?accion=">Listar configuraciones</a>
         	
         </h2>
 	</center>
     <div align="center">
-		<c:if test="${configuracion != null}">
-			<form action=configuracion?accion=update method="post">
+		<c:if test="${configuracionRol != null}">
+			<form action=configuracionroles?accion=update method="post">
         </c:if>
-        <c:if test="${configuracion == null}">
-			<form action="configuracion?accion=insert" method="post">
+        <c:if test="${configuracionRol == null}">
+			<form action="configuracionroles?accion=insert" method="post">
         </c:if>
         <table border="1" cellpadding="5">
             <caption>
             	<h2>
-            		<c:if test="${configuracion != null}">
+            		<c:if test="${configuracionRol != null}">
             			Editar configuraci&oacute;n
             		</c:if>
-            		<c:if test="${configuracion == null}">
+            		<c:if test="${configuracionRol == null}">
             			Agregar nueva configuraci&oacute;n
             		</c:if>
             	</h2>
@@ -40,24 +40,24 @@
                 <th>Identificador: </th>
                 <td>
                 	<input type="text" name="id" size="10" readonly="readonly"
-                			value="<c:out value='${configuracion.idConfigobiee}'/>"
+                			value="<c:out value='${configuracionRol.idConfigrol}'/>"
                 		/>
+                </td>
+            </tr>
+            <tr>
+                <th>Nombre: </th>
+                <td>
+                	<input type="text" name="nombre" size=50"
+                			value="<c:out value='${configuracion.nombre}' />"
+                	/>
                 </td>
             </tr>
             <tr>
                 <th>Par&aacute;metro: </th>
                 <td>
                 	<input type="text" name="parametro" size="50"
-                			value="<c:out value='${configuracion.parametro}'/>"
+                			value="<c:out value='${configuracion.parametro}' />"
                 		/>
-                </td>
-            </tr>
-            <tr>
-                <th>Valor: </th>
-                <td>
-                	<input type="text" name="valor" size="50"
-                			value="<c:out value='${configuracion.valor}' />"
-                	/>
                 </td>
             </tr>           
             <tr>

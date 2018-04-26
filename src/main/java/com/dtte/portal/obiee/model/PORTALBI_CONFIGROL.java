@@ -5,7 +5,14 @@ public class PORTALBI_CONFIGROL {
 	public PORTALBI_CONFIGROL() {
 
 	}
-
+	
+	public PORTALBI_CONFIGROL(Long idConfigrol, String parametro,
+            String nombre ) {
+		this.idConfigrol=idConfigrol;
+		this.parametro=parametro;
+		this.nombre=nombre;
+	}
+	
 	private Long idConfigrol;
 	private String parametro;
 	private String nombre;

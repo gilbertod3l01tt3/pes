@@ -1,7 +1,6 @@
 package com.dtte.portal.obiee.impl;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class ConfigOBIIEImpl implements ConfigOBIIEDAO {
 	@Override
 	public List<PORTALBI_CONFIGOBIEE> listAllConfigs() {
 		List<PORTALBI_CONFIGOBIEE> listConfig = new ArrayList<>();
-		String sql = "SELECT * FROM PORTALBI_CONFIGOBIEE";
+		String sql = "SELECT * FROM PORTALBI_CONFIGOBIEE ORDER BY ID_CONFIGOBIEE";
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(sql)) {
@@ -143,10 +142,10 @@ public class ConfigOBIIEImpl implements ConfigOBIIEDAO {
 
 	@Override
 	public String ObtainValor(String parameter) {
-		String sql = "select valor from PORTALBI_CONFIGOBIEE where PARAMETRO='" + parameter+"'";
+		String sql = "select valor from PORTALBI_CONFIGOBIEE where PARAMETRO='" + parameter + "'";
 		String resultado = null;
 		System.out.println("El valor del parámetro: " + parameter + " es: " + resultado);
-		System.out.println("El query a ejecutar es: " +sql);
+		System.out.println("El query a ejecutar es: " + sql);
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.Statement statement = connection.createStatement();
 				ResultSet result = statement.executeQuery(sql)) {

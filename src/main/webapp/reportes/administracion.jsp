@@ -19,7 +19,7 @@
 	</br>
 		<div class="row">
 		  <div class="col-xs-6 col-md-6">
-		  	<a href="#" class="btn btn-primary btn-lg btn-block" role="button">Configurar Roles</a>		  	
+		  	<a href="configuracionroles?accion=" class="btn btn-primary btn-lg btn-block" role="button">Configurar Roles</a>		  	
 		  </div>
 		  <div class="col-xs-6 col-md-6">		    
 		    <a href="#" class="btn btn-success btn-lg btn-block" role="button">Configurar Reportes</a>				

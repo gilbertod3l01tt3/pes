@@ -91,5 +91,13 @@
 	<servlet-mapping>
 		<servlet-name>adminConfiguracion</servlet-name>
 		<url-pattern>/configuracion</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>configuracionroles</servlet-name>
+		<servlet-class>com.dtte.portal.obiee.administracion.ConfiguracionRolesController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>configuracionroles</servlet-name>
+		<url-pattern>/configuracionroles</url-pattern>
+	</servlet-mapping>		
 </web-app>
