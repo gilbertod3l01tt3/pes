@@ -47,11 +47,19 @@ public class ConfiguracionRolesController extends HttpServlet {
 			case "insert":
 				insert(request, response);
 				break;
+			case "delete":
+				delete(request, response);
+				break;
+			case "edit":
+				edit(request, response);
+				break;
+			case "update":
+				update(request, response);
+				break;
 			/*
-			 * case "delete": delete(request, response); break; case "edit": edit(request,
-			 * response); break; case "update": update(request, response); break; case
-			 * "listar": listarConfiguraciones(request, response); break; case "consultar":
-			 * consultarParametro(request, response); break;
+			 * 
+			 * 
+			 * case "consultar": consultarParametro(request, response); break;
 			 */
 			case "listar":
 			default:
@@ -95,6 +103,42 @@ public class ConfiguracionRolesController extends HttpServlet {
 		request.getRequestDispatcher("/error.jsp").forward(request, response);
 	}
 
+	private void edit(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, NumberFormatException {
+		String idConfigobiee = request.getParameter("id");
+		System.out.println("idConfigROL: " + idConfigobiee);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/administracion/configuracionRoles.jsp");
+		PORTALBI_CONFIGROL newConfigRol = Implementacion.getConfiguration(Long.valueOf(idConfigobiee));
+		request.setAttribute("configuracionRol", newConfigRol);
+		dispatcher.forward(request, response);
+
+	}
+
+	private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String parametro = request.getParameter("parametro");
+		String nombre = request.getParameter("nombre");
+		String idConfigRol = request.getParameter("id");
+		PORTALBI_CONFIGROL newConfigRol = new PORTALBI_CONFIGROL();
+		newConfigRol.setParametro(parametro);
+		newConfigRol.setNombre(nombre);
+		newConfigRol.setIdConfigrol(Long.valueOf(idConfigRol));
+		boolean estatusUpdate=Implementacion.update(newConfigRol);
+		if(estatusUpdate) {
+			response.sendRedirect("configuracion?accion=listar");
+		}else {
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		}
+		
+	}
+
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String identificador = request.getParameter("id");
+		System.out.println("Parámetro a borrar " + identificador);
+		boolean estatusBorrado = Implementacion.delete(Long.valueOf(identificador));
+		System.out.println("Estatus de borrado " + estatusBorrado);
+		response.sendRedirect("configuracionroles?accion=listar");
+	}
+
 	/*
 	 * private void consultarRol(HttpServletRequest request, HttpServletResponse
 	 * response) throws IOException { String parametroPrueba = "servidor";
@@ -106,39 +150,14 @@ public class ConfiguracionRolesController extends HttpServlet {
 	 * 
 	 * }
 	 * 
-	 * private void delete(HttpServletRequest request, HttpServletResponse response)
-	 * throws IOException, ServletException { String identificador =
-	 * request.getParameter("id"); System.out.println("Parámetro a borrar " +
-	 * identificador); boolean estatusBorrado =
-	 * Implementacion.delete(Long.valueOf(identificador));
-	 * System.out.println("Estatus de borrado " + estatusBorrado);
-	 * response.sendRedirect("configuracion?accion=listar"); }
-	 * 
-	 * private void edit(HttpServletRequest request, HttpServletResponse response)
-	 * throws ServletException, IOException, NumberFormatException { String
-	 * idConfigobiee = request.getParameter("id");
-	 * System.out.println("idConfigobiee: " + idConfigobiee); RequestDispatcher
-	 * dispatcher =
-	 * request.getRequestDispatcher("/administracion/EditarConfiguracionGeneral.jsp"
-	 * ); PORTALBI_CONFIGOBIEE newConfig =
-	 * Implementacion.getConfiguration(Long.valueOf(idConfigobiee));
-	 * request.setAttribute("configuracion", newConfig); dispatcher.forward(request,
-	 * response);
-	 * 
-	 * }
 	 * 
 	 * 
 	 * 
 	 * 
-	 * private void update(HttpServletRequest request, HttpServletResponse response)
-	 * throws IOException { String parametro = request.getParameter("parametro");
-	 * String valor = request.getParameter("valor"); String idConfigobiee =
-	 * request.getParameter("id"); PORTALBI_CONFIGOBIEE newConfig = new
-	 * PORTALBI_CONFIGOBIEE(); newConfig.setParametro(parametro);
-	 * newConfig.setValor(valor);
-	 * newConfig.setIdConfigobiee(Long.valueOf(idConfigobiee));
-	 * Implementacion.update(newConfig);
-	 * response.sendRedirect("configuracion?accion=listar"); }
+	 * 
+	 * 
+	 * 
+	 * 
 	 * 
 	 * 
 	 */

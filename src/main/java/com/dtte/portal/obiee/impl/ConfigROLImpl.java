@@ -63,10 +63,75 @@ public class ConfigROLImpl implements ConfigROLDAO {
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.PreparedStatement ps = connection.prepareStatement(sql);) {
 
-			System.out.println("Insertando registro de configOBIEE");
+			System.out.println("Insertando registro de CONFIGROL");
 			ps.setLong(1, configuracion.getIdConfigrol());
 			ps.setString(2, configuracion.getNombre());
 			ps.setString(3, configuracion.getParametro());
+
+			bandera = ps.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Excepcion al insertar registro" + e);
+		}
+		return bandera;
+	}
+
+	@Override
+	public boolean delete(Long entificador) {
+		boolean bandera = false;
+		String sql = "delete from PORTALBI_CONFIGROL where ID_CONFIGROL=?";
+
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.PreparedStatement ps = connection.prepareStatement(sql);) {
+
+			System.out.println("Borrando registro de CONFIGROL");
+			ps.setLong(1, entificador);
+
+			bandera = ps.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Excepcion al borrar registro" + e);
+		}
+		return bandera;
+	}
+
+	@Override
+	public PORTALBI_CONFIGROL getConfiguration(Long configuracionRol) {
+		PORTALBI_CONFIGROL configRol = new PORTALBI_CONFIGROL();
+		String sql = "SELECT * FROM PORTALBI_CONFIGROL where ID_CONFIGROL=" + configuracionRol;
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(sql)) {
+			while (resultSet.next()) {
+
+				long idRol = resultSet.getLong("ID_CONFIGROL");
+				String parametro = resultSet.getString("PARAMETRO");
+				String nombre = resultSet.getString("NOMBRE");
+
+				configRol.setIdConfigrol(idRol);
+				configRol.setNombre(nombre);
+				configRol.setParametro(parametro);
+			}
+		} catch (Exception e) {
+			System.out.println("Excepción al consultar configuración " + e);
+			e.printStackTrace();
+		}
+		return configRol;
+	}
+
+	@Override
+	public boolean update(PORTALBI_CONFIGROL newConfigRol) {
+		boolean bandera = false;
+		String sql = "update PORTALBI_CONFIGROL set PARAMETRO=?,NOMBRE=? WHERE ID_CONFIGROL=?";
+
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.PreparedStatement ps = connection.prepareStatement(sql);) {
+
+			System.out.println("Actualizando registro de configROL");			
+			
+			ps.setLong(3, newConfigRol.getIdConfigrol());
+			ps.setString(1, newConfigRol.getParametro());
+			ps.setString(2, newConfigRol.getNombre());
 
 			bandera = ps.executeUpdate() > 0;
 		} catch (Exception e) {

@@ -48,7 +48,7 @@
                 <th>Nombre: </th>
                 <td>
                 	<input type="text" name="nombre" size=50"
-                			value="<c:out value='${configuracion.nombre}' />"
+                			value="<c:out value='${configuracionRol.nombre}' />"
                 	/>
                 </td>
             </tr>
@@ -56,7 +56,7 @@
                 <th>Par&aacute;metro: </th>
                 <td>
                 	<input type="text" name="parametro" size="50"
-                			value="<c:out value='${configuracion.parametro}' />"
+                			value="<c:out value='${configuracionRol.parametro}' />"
                 		/>
                 </td>
             </tr>           
