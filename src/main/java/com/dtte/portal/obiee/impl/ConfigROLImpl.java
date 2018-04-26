@@ -141,4 +141,28 @@ public class ConfigROLImpl implements ConfigROLDAO {
 		return bandera;
 	}
 
+	@Override
+	public PORTALBI_CONFIGROL ObtainRolByName(String nombreRol) {
+		PORTALBI_CONFIGROL configRol = new PORTALBI_CONFIGROL();
+		String sql = "select * from PORTALBI_CONFIGROL where NOMBRE='"+nombreRol+"'";
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(sql)) {
+			while (resultSet.next()) {
+
+				long idRol = resultSet.getLong("ID_CONFIGROL");
+				String parametro = resultSet.getString("PARAMETRO");
+				String nombre = resultSet.getString("NOMBRE");
+
+				configRol.setIdConfigrol(idRol);
+				configRol.setNombre(nombre);
+				configRol.setParametro(parametro);
+			}
+		} catch (Exception e) {
+			System.out.println("Excepción al consultar configuración por Rol " + e);
+			e.printStackTrace();
+		}
+		return configRol;
+	}
+
 }

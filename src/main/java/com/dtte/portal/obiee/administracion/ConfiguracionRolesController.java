@@ -56,11 +56,9 @@ public class ConfiguracionRolesController extends HttpServlet {
 			case "update":
 				update(request, response);
 				break;
-			/*
-			 * 
-			 * 
-			 * case "consultar": consultarParametro(request, response); break;
-			 */
+			case "consultarRolPorNombre":
+				consultarRolPorNombre(request, response);
+				break;
 			case "listar":
 			default:
 				listarConfiguraciones(request, response);
@@ -69,6 +67,20 @@ public class ConfiguracionRolesController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void consultarRolPorNombre(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String parametroPrueba = "PRESIDENTE";
+		response.setContentType("text/html; charset=iso-8859-1");
+		PORTALBI_CONFIGROL valor = Implementacion.ObtainRolByName(parametroPrueba);
+		PrintWriter out = response.getWriter();
+		out.println("Esto es una consulta del objeto Rol basado en el nombre");
+		out.println("</br>");
+		out.println("Nombre del rol: " + parametroPrueba);
+		out.println("Desde el objeto/Nombre: " + valor.getNombre());
+		out.println("Desde el objeto/Parametro: " + valor.getParametro());
+		out.println("Desde el objeto/ID: " + valor.getIdConfigrol());
+
 	}
 
 	private void newForm(HttpServletRequest request, HttpServletResponse response)
@@ -106,10 +118,10 @@ public class ConfiguracionRolesController extends HttpServlet {
 	private void edit(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, NumberFormatException {
 		String idConfigobiee = request.getParameter("id");
-		System.out.println("idConfigROL: " + idConfigobiee);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/administracion/configuracionRoles.jsp");
-		PORTALBI_CONFIGROL newConfigRol = Implementacion.getConfiguration(Long.valueOf(idConfigobiee));
+		System.out.println("idConfigROL: " + idConfigobiee);		
+		PORTALBI_CONFIGROL newConfigRol = Implementacion.getConfiguration(Long.valueOf(idConfigobiee));		
 		request.setAttribute("configuracionRol", newConfigRol);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/administracion/editarRoles.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -122,13 +134,13 @@ public class ConfiguracionRolesController extends HttpServlet {
 		newConfigRol.setParametro(parametro);
 		newConfigRol.setNombre(nombre);
 		newConfigRol.setIdConfigrol(Long.valueOf(idConfigRol));
-		boolean estatusUpdate=Implementacion.update(newConfigRol);
-		if(estatusUpdate) {
-			response.sendRedirect("configuracion?accion=listar");
-		}else {
+		boolean estatusUpdate = Implementacion.update(newConfigRol);
+		if (estatusUpdate) {
+			response.sendRedirect("configuracionroles?accion=listar");
+		} else {
 			request.getRequestDispatcher("/error.jsp").forward(request, response);
 		}
-		
+
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

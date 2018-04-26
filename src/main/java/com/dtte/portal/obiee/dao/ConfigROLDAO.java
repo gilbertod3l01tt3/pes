@@ -18,4 +18,6 @@ public interface ConfigROLDAO {
 
 	boolean update(PORTALBI_CONFIGROL newConfigRol);
 
+	PORTALBI_CONFIGROL ObtainRolByName(String nombreRol);
+
 }
