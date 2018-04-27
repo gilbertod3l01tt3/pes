@@ -58,11 +58,11 @@ public class LoginController  extends HttpServlet{
             request.setAttribute("error", new Exception("AuthenticationResult not found in session."));
             response.sendRedirect("error.jsp");
         } else {
-            String data;
+            String[] data;
             try {
                 String tenant = session.getServletContext().getInitParameter("tenant");
                 data = getRolFromGraph(result, tenant);
-                request.setAttribute("rol", data);
+                request.setAttribute("roles", data);
                 request.setAttribute("userInfo",result.getUserInfo());
             } catch (Exception e) {
             	request.setAttribute("error", e);
@@ -72,7 +72,7 @@ public class LoginController  extends HttpServlet{
         request.getRequestDispatcher("/reportes/home.jsp").forward(request, response);
     }
 
-   private String getRolFromGraph(AuthenticationResult result, String tenant) throws Exception {
+   private String[] getRolFromGraph(AuthenticationResult result, String tenant) throws Exception {
     URL url = new URL(null,String.format("https://graph.windows.net/%s/users/%s/memberOf?api-version=1.6", 
     		tenant,
     		result.getUserInfo().getUniqueId()),
@@ -96,14 +96,15 @@ public class LoginController  extends HttpServlet{
     groups = JSONHelper.fetchDirectoryObjectJSONArray(response);
     
     StringBuilder builder = new StringBuilder();
-    
+    String[] array = new String[groups.length()];
     for (int i = 0; i < groups.length(); i++) {
         JSONObject thisGroupJSONObject = groups.optJSONObject(i);
         //user = new User();
         //JSONHelper.convertJSONObjectToDirectoryObject(thisGroupJSONObject, user);
-        builder.append(thisGroupJSONObject.getString("displayName")+ ",");
+        array[i] = thisGroupJSONObject.getString("displayName");
+        //builder.append(thisGroupJSONObject.getString("displayName")+ ",");
     }
-    return builder.toString();
+    return array;
    }
 }
 

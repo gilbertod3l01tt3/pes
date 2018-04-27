@@ -99,5 +99,13 @@
 	<servlet-mapping>
 		<servlet-name>configuracionroles</servlet-name>
 		<url-pattern>/configuracionroles</url-pattern>
-	</servlet-mapping>		
+	</servlet-mapping>	
+	<servlet>
+		<servlet-name>GeneraOpcionesReportesController</servlet-name>
+		<servlet-class>com.dtte.portal.obiee.administracion.GeneraOpcionesReportesController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GeneraOpcionesReportesController</servlet-name>
+		<url-pattern>/generaOpcionesReportes</url-pattern>
+	</servlet-mapping>
 </web-app>
