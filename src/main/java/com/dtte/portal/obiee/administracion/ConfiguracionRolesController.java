@@ -149,28 +149,5 @@ public class ConfiguracionRolesController extends HttpServlet {
 		boolean estatusBorrado = Implementacion.delete(Long.valueOf(identificador));
 		System.out.println("Estatus de borrado " + estatusBorrado);
 		response.sendRedirect("configuracionroles?accion=listar");
-	}
-
-	/*
-	 * private void consultarRol(HttpServletRequest request, HttpServletResponse
-	 * response) throws IOException { String parametroPrueba = "servidor";
-	 * response.setContentType("text/html; charset=iso-8859-1"); String valor =
-	 * Implementacion.ObtainValor(parametroPrueba); PrintWriter out =
-	 * response.getWriter(); out.println("Esto es una consulta de valor a la DB");
-	 * out.println("</br>"); out.println("Valores usando jdbc ");
-	 * out.println("Parametro: " + parametroPrueba); out.println("Valor: " + valor);
-	 * 
-	 * }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
+	}	
 }
