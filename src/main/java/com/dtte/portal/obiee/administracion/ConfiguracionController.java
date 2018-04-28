@@ -72,7 +72,7 @@ public class ConfiguracionController extends HttpServlet {
 	private void consultarParametro(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String parametroPrueba = "servidor";
 		response.setContentType("text/html; charset=iso-8859-1");
-		String valor = Implementacion.ObtainValor(parametroPrueba);
+		String valor = Implementacion.ObtainValue(parametroPrueba);
 		PrintWriter out = response.getWriter();
 		out.println("Esto es una consulta de valor a la DB");
 		out.println("</br>");

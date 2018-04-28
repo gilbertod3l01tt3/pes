@@ -17,6 +17,6 @@ public interface ConfigOBIIEDAO {
 
 	boolean delete(Long identificador);
 
-	String ObtainValor(String parameter);
+	String ObtainValue(String parameter);
 
 }

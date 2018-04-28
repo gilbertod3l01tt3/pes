@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dtte.portal.obiee.dao.ConfigROLDAO;
-import com.dtte.portal.obiee.model.PORTALBI_CONFIGOBIEE;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGROL;
 import com.dtte.portal.obiee.utils.DBUtil;
 
@@ -127,8 +126,8 @@ public class ConfigROLImpl implements ConfigROLDAO {
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.PreparedStatement ps = connection.prepareStatement(sql);) {
 
-			System.out.println("Actualizando registro de configROL");			
-			
+			System.out.println("Actualizando registro de configROL");
+
 			ps.setLong(3, newConfigRol.getIdConfigrol());
 			ps.setString(1, newConfigRol.getParametro());
 			ps.setString(2, newConfigRol.getNombre());
@@ -144,7 +143,7 @@ public class ConfigROLImpl implements ConfigROLDAO {
 	@Override
 	public PORTALBI_CONFIGROL ObtainRolByName(String nombreRol) {
 		PORTALBI_CONFIGROL configRol = new PORTALBI_CONFIGROL();
-		String sql = "select * from PORTALBI_CONFIGROL where NOMBRE='"+nombreRol.toUpperCase()+"'";
+		String sql = "select * from PORTALBI_CONFIGROL where NOMBRE='" + nombreRol.toUpperCase() + "'";
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(sql)) {
@@ -152,7 +151,7 @@ public class ConfigROLImpl implements ConfigROLDAO {
 				long idRol = resultSet.getLong("ID_CONFIGROL");
 				String parametro = resultSet.getString("PARAMETRO");
 				String nombre = resultSet.getString("NOMBRE");
-				
+
 				configRol.setIdConfigrol(idRol);
 				configRol.setNombre(nombre);
 				configRol.setParametro(parametro);

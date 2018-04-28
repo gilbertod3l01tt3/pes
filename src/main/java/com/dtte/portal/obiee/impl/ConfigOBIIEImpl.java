@@ -141,7 +141,7 @@ public class ConfigOBIIEImpl implements ConfigOBIIEDAO {
 	}
 
 	@Override
-	public String ObtainValor(String parameter) {
+	public String ObtainValue(String parameter) {
 		String sql = "select valor from PORTALBI_CONFIGOBIEE where PARAMETRO='" + parameter + "'";
 		String resultado = null;
 		System.out.println("El valor del parámetro: " + parameter + " es: " + resultado);
