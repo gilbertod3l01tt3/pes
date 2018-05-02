@@ -116,4 +116,12 @@
 		<servlet-name>GeneraOpcionesReportesController</servlet-name>
 		<url-pattern>/generaOpcionesReportes</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>generaUrlDinamica</servlet-name>
+		<servlet-class>com.dtte.portal.obiee.utils.GeneraURLDinamicaController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>generaUrlDinamica</servlet-name>
+		<url-pattern>/generaUrlDinamica</url-pattern>
+	</servlet-mapping>
 </web-app>
