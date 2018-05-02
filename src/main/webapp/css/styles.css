@@ -72,6 +72,14 @@ a, a:hover, a:focus {
 	color: #000;
 }
 
+#sidebar #rol{
+	color: #000;
+}
+
+#sidebar option{
+	color: #000;
+}
+
 #sidebar.active {
     left: 0;
 }

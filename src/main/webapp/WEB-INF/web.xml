@@ -108,4 +108,12 @@
 		<servlet-name>GeneraOpcionesReportesController</servlet-name>
 		<url-pattern>/generaOpcionesReportes</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>GeneraSelectoresController</servlet-name>
+		<servlet-class>com.dtte.portal.obiee.administracion.GeneraSelectoresController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GeneraSelectoresController</servlet-name>
+		<url-pattern>/generaSelectores</url-pattern>
+	</servlet-mapping>
 </web-app>

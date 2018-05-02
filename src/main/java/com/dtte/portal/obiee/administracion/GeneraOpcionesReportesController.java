@@ -37,19 +37,14 @@ public class GeneraOpcionesReportesController extends HttpServlet {
 		PORTALBI_CONFIGROL rol= rolImpl.ObtainRolByName(nombre);
 		List<PORTALBI_ROLREPORTE> reportes = reporteImpl.getReportesFromRol(rol.getIdConfigrol());
 		
-		out.println("<p><strong>Seleccione el reporte que desea visualizar.</strong></p>");
+		out.println("<p><strong>Reporte a visualizar:</strong></p>");
 		out.println("<select id=\"option\">");			
 		out.println("<option value=\"0\">Seleccione una opci&oacute;n</option>");
 		for(int i=0; i<reportes.size(); i++){
 			out.println("<option value="+reportes.get(i).getIdConfigreporte()+">"+reportes.get(i).getNombredespliegue()+"</option>");
 		}
-		out.println("</select>");
+		out.println("</select></br>");		
 		
-		out.println("<input type=\"button\" class=\"btn btn-primary\" onclick=\"setURL()\" value=\"Consultar\"/>");
 	}
 
-	@Override
-	public String getServletInfo() {
-		return "Administracion Servlet";
-	}
 }
