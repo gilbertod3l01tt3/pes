@@ -120,10 +120,12 @@
         			}
         			$('#reportes').on('change',"#option",function(){  
         				$('#selectores').html("");
-	           			var reporteVar = $('#option').val();	           		
+	           			var reporteVar = $('#option').val();
+	           			var rolVar = $("#selected_rol").html();
 		           		// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
 		       			$.post('generaSelectores', {
-		       				reporte : reporteVar
+		       				reporte : reporteVar,
+		       				rol : rolVar
 		       			}, function(responseText) {
 		       				$('#selectores').html(responseText);
 		       			});

@@ -6,7 +6,7 @@ import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
 
 public interface ConfigREPORTEDAO {
 
-	String[] getParametersById(Long reporte);
+	String[] getParametersById(Long report);
 
 	List<PORTALBI_CONFIGREPORTE> listAllConfigReporte();
 

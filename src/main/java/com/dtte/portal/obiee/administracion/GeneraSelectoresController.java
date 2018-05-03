@@ -2,6 +2,7 @@ package com.dtte.portal.obiee.administracion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dtte.portal.obiee.impl.ConfigREPORTEImpl;
+import com.dtte.portal.obiee.impl.ConfigROLImpl;
+import com.dtte.portal.obiee.impl.RolREPORTEImpl;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
 
 public class GeneraSelectoresController extends HttpServlet {
@@ -22,32 +25,86 @@ public class GeneraSelectoresController extends HttpServlet {
 	}
 	
 	private ConfigREPORTEImpl reporteImpl = new ConfigREPORTEImpl();
+	private ConfigROLImpl rolImpl = new ConfigROLImpl();
+	private RolREPORTEImpl rolreporteImpl = new RolREPORTEImpl();
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		response.setContentType( "text/html; charset=iso-8859-1" );
 		PrintWriter out = response.getWriter();
-
+		List<String> Estados = new ArrayList<String>();
+		Estados.add("Aguascalientes");
+		Estados.add("Baja California");
+		Estados.add("Baja California Sur");
+		Estados.add("Campeche");
+		Estados.add("Chiapas");
+		Estados.add("Chihuahua");
+		Estados.add("Ciudad De Mexico");
+		Estados.add("Coahuila De Zaragoza");
+		Estados.add("Colima");
+		Estados.add("Durango");
+		Estados.add("Guanajuato");
+		Estados.add("Guerrero");
+		Estados.add("Hidalgo");
+		Estados.add("Jalisco");
+		Estados.add("Michoaca De Ocampo");
+		Estados.add("Morelos");
+		Estados.add("Mexico");
+		Estados.add("Nayarit");
+		Estados.add("Nuevo Leon");
+		Estados.add("Oaxaca");
+		Estados.add("Puebla");
+		Estados.add("Queretaro");
+		Estados.add("Quintana Roo");
+		Estados.add("San Luis Potosi");
+		Estados.add("Sinaloa");
+		Estados.add("Sonora");
+		Estados.add("Tabasco");
+		Estados.add("Tamaulipas");
+		Estados.add("Tlaxcala");
+		Estados.add("Veracruz Ignacio De Llave");
+		Estados.add("Yucatan");
+		Estados.add("Zacatecas");
 		// Obtengo los datos de la peticion
+		String rol = request.getParameter("rol");
 		String idreporte = request.getParameter("reporte");
-		String[] parametros= reporteImpl.getParametersById(Long.valueOf(idreporte));
-		if(parametros == null) {
+		Long idrol = rolImpl.ObtainRolByName(rol).getIdConfigrol();
+		String[] parametrosmandatorios= rolreporteImpl.getMandatoryParam(idrol,Long.valueOf(idreporte));
+		String[] parametrosopcionales= rolreporteImpl.getOptionalParam(idrol,Long.valueOf(idreporte));
+		String[] parametrosnulos= rolreporteImpl.getNullParam(idrol,Long.valueOf(idreporte));
+		
+		if(parametrosmandatorios == null && parametrosopcionales == null) {
 			out.println("<input id=\"consultar\" type=\"button\" class=\"btn btn-primary\" value=\"Consultar\"/>");
 		}else {
-		for(int i=0; i<parametros.length; i++){
-			out.println("<p><strong>"+parametros[i]+"</strong></p>");
-			out.println("<select id="+parametros[i]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
-		
-				out.println("<option value=\"0\">Seleccione estado</option>");
-				out.println("<option value=\"Aguascalientes\">Aguascalientes</option>");
-				out.println("<option value=\"Baja California\">Baja California</option>");
-				out.println("<option value=\"Puebla\">Puebla</option>");
-				out.println("<option value=\"Tlaxcala\">Tlaxcala</option>");				
-			
-			out.println("</select></br>");	
-		}	
-		out.println("<input id=\"consultar\" type=\"button\" class=\"btn btn-primary\" value=\"Consultar\"/>");
+			if(parametrosmandatorios != null) {
+				for(int i=0; i<parametrosmandatorios.length; i++){
+					
+					out.println("<p><strong>"+parametrosmandatorios[i]+"</strong></p>");
+					out.println("<select id="+parametrosmandatorios[i]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
+					out.println("<option value=\"0\">Seleccione "+parametrosmandatorios[i]+"</option>");	
+					
+					///////////Aquí hay que ir al DWH//////////////
+					
+					for(int j=0;j<Estados.size();j++) {
+						out.println("<option value="+Estados.get(j)+">"+Estados.get(j)+"</option>");
+					}
+					out.println("</select></br>");	
+				}	
+			}
+			if(parametrosopcionales != null) {
+				for(int k=0; k<parametrosopcionales.length; k++){
+					
+					out.println("<p><strong>"+parametrosopcionales[k]+"</strong></p>");
+					out.println("<select id="+parametrosopcionales[k]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
+					out.println("<option value=\"0\">Seleccione estado</option>");	
+					for(int j=0;j<Estados.size();j++) {
+						out.println("<option value="+Estados.get(j)+">"+Estados.get(j)+"</option>");
+					}
+					out.println("</select></br>");	
+				}				
+			}
+			out.println("<input id=\"consultar\" type=\"button\" class=\"btn btn-primary\" value=\"Consultar\"/>");
 		}
 	}
 }

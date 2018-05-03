@@ -39,4 +39,73 @@ public class RolREPORTEImpl implements RolREPORTEDAO {
 		return listReport;
 	}
 
+	@Override
+	public String[] getMandatoryParam(Long rol, Long reporte) {
+		// TODO Auto-generated method stub
+		String[] parametros = null;
+		String parametro = null;
+		String sql = "select PARAMETROMANDATORIO from PORTALBI_ROLREPORTE "
+				+ "where ID_CONFIGROL='"+rol.toString()+"' "
+				+ "and ID_CONFIGREPORTE='"+reporte.toString()+"'";
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.Statement statement = connection.createStatement();
+				ResultSet result = statement.executeQuery(sql)) {
+
+			while (result.next()) {
+			    parametro = result.getString(1);								
+			}
+			parametros=parametro.split(",");
+		} catch (Exception e) {
+			System.out.println("Excepcion al obtener parametros" + e);
+			e.printStackTrace();
+		}
+		return parametros;
+	}
+
+	@Override
+	public String[] getOptionalParam(Long rol, Long reporte) {
+		// TODO Auto-generated method stub
+		String[] parametros = null;
+		String parametro = null;
+		String sql = "select PARAMETROOPCIONAL from PORTALBI_ROLREPORTE "
+				+ "where ID_CONFIGROL='"+rol.toString()+"' "
+				+ "and ID_CONFIGREPORTE='"+reporte.toString()+"'";
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.Statement statement = connection.createStatement();
+				ResultSet result = statement.executeQuery(sql)) {
+
+			while (result.next()) {
+			    parametro = result.getString(1);								
+			}
+			parametros=parametro.split(",");
+		} catch (Exception e) {
+			System.out.println("Excepcion al obtener parametros" + e);
+			e.printStackTrace();
+		}
+		return parametros;
+	}
+
+	@Override
+	public String[] getNullParam(Long rol, Long reporte) {
+		// TODO Auto-generated method stub
+		String[] parametros = null;
+		String parametro = null;
+		String sql = "select PARAMETRONULO from PORTALBI_ROLREPORTE "
+				+ "where ID_CONFIGROL='"+rol.toString()+"' "
+				+ "and ID_CONFIGREPORTE='"+reporte.toString()+"'";
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.Statement statement = connection.createStatement();
+				ResultSet result = statement.executeQuery(sql)) {
+
+			while (result.next()) {
+			    parametro = result.getString(1);								
+			}
+			parametros=parametro.split(",");
+		} catch (Exception e) {
+			System.out.println("Excepcion al obtener parametros" + e);
+			e.printStackTrace();
+		}
+		return parametros;
+	}
+
 }
