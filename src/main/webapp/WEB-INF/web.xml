@@ -107,6 +107,14 @@
 	<servlet-mapping>
 		<servlet-name>configuracionreportes</servlet-name>
 		<url-pattern>/configuracionreportes</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>configuracionreportesrol</servlet-name>
+		<servlet-class>com.dtte.portal.obiee.administracion.ConfiguracionReportesRolController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>configuracionreportesrol</servlet-name>
+		<url-pattern>/configuracionreportesrol</url-pattern>
 	</servlet-mapping>	
 	<servlet>
 		<servlet-name>GeneraOpcionesReportesController</servlet-name>
