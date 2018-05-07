@@ -1,7 +1,6 @@
 package com.dtte.portal.obiee.utils;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Common {
@@ -34,12 +33,17 @@ public class Common {
 		sb.append(":");
 		sb.append(port);
 		sb.append("/analytics/saw.dll?dashboard");
-		sb.append("&Action=Print");
+		sb.append("&Action=Navigate");
 		sb.append("&NQUser=");
 		sb.append(user);
 		sb.append("&NQPassword=");
 		sb.append(password);
 		return sb;
+	}
+
+	public String getDinamicURL(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

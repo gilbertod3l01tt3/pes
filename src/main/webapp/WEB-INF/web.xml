@@ -125,6 +125,14 @@
 		<url-pattern>/generaUrlDinamica</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>construyeUrlDinamica</servlet-name>
+		<servlet-class>com.dtte.portal.obiee.utils.ConstruyeURLDinamicaController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>construyeUrlDinamica</servlet-name>
+		<url-pattern>/construyeUrlDinamica</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>GeneraSelectoresController</servlet-name>
 		<servlet-class>com.dtte.portal.obiee.administracion.GeneraSelectoresController</servlet-class>
 	</servlet>
