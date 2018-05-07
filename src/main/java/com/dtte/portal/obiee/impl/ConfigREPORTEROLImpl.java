@@ -159,17 +159,19 @@ public class ConfigREPORTEROLImpl implements ConfigREPORTEROLDAO {
 	}
 
 	@Override
-	public boolean delete(Long entificador) {
+	public boolean delete(Long idRol, Long idReporte) {
 		boolean bandera = false;
-		String sql = "delete from PORTALBI_ROLREPORTE where ID_CONFIGROL=?";
+		String sql = "delete from PORTALBI_ROLREPORTE where ID_CONFIGROL = ? and ID_CONFIGREPORTE = ?";
 
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.PreparedStatement ps = connection.prepareStatement(sql);) {
 
 			System.out.println("Borrando registro de CONFIGROL");
-			ps.setLong(1, entificador);
+			ps.setLong(1, idRol);
+			ps.setLong(2, idReporte);
 
 			bandera = ps.executeUpdate() > 0;
+			connection.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Excepcion al borrar registro" + e);

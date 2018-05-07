@@ -184,9 +184,12 @@ public class ConfiguracionReportesRolController extends HttpServlet {
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String identificador = request.getParameter("id");
-		System.out.println("Parámetro a borrar " + identificador);
-		boolean estatusBorrado = Implementacion.delete(Long.valueOf(identificador));
+		Long idRol = Long.valueOf(request.getParameter("id"));
+		Long idReporte = Long.valueOf(request.getParameter("idReporte"));
+		System.out.println("Parámetro a borrar " + idRol + " - " + idReporte);
+		
+		boolean estatusBorrado = Implementacion.delete(idRol, idReporte);
+		
 		System.out.println("Estatus de borrado " + estatusBorrado);
 		response.sendRedirect("configuracionreportesrol?accion=listar");
 	}	

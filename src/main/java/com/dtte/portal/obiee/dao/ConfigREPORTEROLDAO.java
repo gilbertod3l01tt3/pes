@@ -17,7 +17,7 @@ public interface ConfigREPORTEROLDAO {
 
 	Method_Response insert(PORTALBI_CONFIGREPORTEROL configuracion);
 
-	boolean delete(Long identificador);
+	boolean delete(Long idRol, Long idReporte);
 
 	PORTALBI_CONFIGREPORTEROL getConfiguration(Long configuracionRolId, Long reporteRolId);
 
