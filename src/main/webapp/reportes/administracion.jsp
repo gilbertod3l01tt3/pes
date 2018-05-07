@@ -30,7 +30,7 @@
 		  	<a href="configuracion?accion=" class="btn btn-info btn-lg btn-block" role="button">Configurar Par&aacute;metros en general</a>		  	
 		  </div>
 		  <div class="col-xs-6 col-md-6">
-		  	<a href="configuracion?accion=" class="btn btn-warning btn-lg btn-block" role="button">Vincular Reportes a Rol</a>
+		  	<a href="configuracionreportesrol?accion=" class="btn btn-warning btn-lg btn-block" role="button">Vincular Reportes a Rol</a>
 		  </div>
 		</div>
 	</div>
