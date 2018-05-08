@@ -14,6 +14,7 @@ import com.dtte.portal.obiee.impl.ConfigREPORTEImpl;
 import com.dtte.portal.obiee.impl.ConfigROLImpl;
 import com.dtte.portal.obiee.impl.RolREPORTEImpl;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
+import com.dtte.portal.obiee.utils.Common;
 
 public class GeneraSelectoresController extends HttpServlet {
 
@@ -27,6 +28,7 @@ public class GeneraSelectoresController extends HttpServlet {
 	private ConfigREPORTEImpl reporteImpl = new ConfigREPORTEImpl();
 	private ConfigROLImpl rolImpl = new ConfigROLImpl();
 	private RolREPORTEImpl rolreporteImpl = new RolREPORTEImpl();
+	private Common utils = new Common();
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -72,7 +74,8 @@ public class GeneraSelectoresController extends HttpServlet {
 		Long idrol = rolImpl.ObtainRolByName(rol).getIdConfigrol();
 		String[] parametrosmandatorios= rolreporteImpl.getMandatoryParam(idrol,Long.valueOf(idreporte));
 		String[] parametrosopcionales= rolreporteImpl.getOptionalParam(idrol,Long.valueOf(idreporte));
-		String[] parametrosnulos= rolreporteImpl.getNullParam(idrol,Long.valueOf(idreporte));
+		
+		
 		
 		if(parametrosmandatorios == null && parametrosopcionales == null) {
 			out.println("<input id=\"consultar\" type=\"button\" class=\"btn btn-primary\" value=\"Consultar\"/>");
@@ -80,7 +83,7 @@ public class GeneraSelectoresController extends HttpServlet {
 			if(parametrosmandatorios != null) {
 				for(int i=0; i<parametrosmandatorios.length; i++){
 					
-					out.println("<p><strong>"+parametrosmandatorios[i]+"</strong></p>");
+					out.println("<p><strong>"+utils.getVariablesAndValues(parametrosmandatorios[i]).get("")+"</strong></p>");
 					out.println("<select id="+parametrosmandatorios[i]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
 					out.println("<option value=\"0\">Seleccione "+parametrosmandatorios[i]+"</option>");	
 					

@@ -9,13 +9,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Portal OBIEE</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-    
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">    
   		<link rel="stylesheet" href="css/styles.css">
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-  		<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+  		<script src="js/jquery-3.3.1.min.js"></script>
+  		<script src="js/bootstrap.min.js"></script>  
+  		<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
   		
   			
   	    <script>
@@ -26,7 +25,7 @@
 					document.getElementById('ventanaReporte').src = "http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=/shared/Carpeta de Pruebas/_portal/PanelPruebaIntegracion&Page=EstadosSIN&Action=Print&NQUser=usr_Estado&NQPassword=usr_3st4d0";
 				}
 				if(agent_id == 2){
-			    	document.getElementById('ventanaReporte').src = "http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=%2Fshared%2FSiged%2F_portal%2FCentros%20de%20Trabajo&Action=Print&NQUser=usr_Estado&NQPassword=usr_3st4d0&P0=1&P1=eq&P2=%22Ubicacion%22.%22Estado%22&P3=2+Puebla+Tlaxcala";
+			    	document.getElementById('ventanaReporte').src = "http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=%2Fshared%2FSiged%2F_portal%2FCentros%20de%20Trabajo&Action=Navigate&NQUser=usr_Estado&NQPassword=usr_3st4d0&P0=1&P1=eq&P2=%22Ubicacion%22.%22Estado%22&P3=2+Puebla+Tlaxcala";
 				}				
 			}
 		</script>

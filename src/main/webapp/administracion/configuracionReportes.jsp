@@ -4,8 +4,14 @@
 <html>
 <head>
 	<title>Portal Obiee - Administraci&oacute;n</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="container">
 	<center>
 		<h1>Configuraci&oacute;n de Reportes</h1>
         <h2>
@@ -16,7 +22,7 @@
         </h2>
 	</center>
     <div align="center">
-        <table border="1" cellpadding="5">
+        <table class="table table-hover">
             <caption><h2>Lista de Reportes</h2></caption>
             <tr>
                 <th>ID</th>
@@ -42,6 +48,7 @@
                 </tr>
             </c:forEach>
         </table>
+    </div>
     </div>	
 </body>
 </html>

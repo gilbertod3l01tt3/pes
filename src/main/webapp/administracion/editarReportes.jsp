@@ -4,8 +4,14 @@
 <html>
 <head>
 	<title>Portal OBIEE Administraci&oacute;n</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="container">
 	<center>
 		<h1>Configuraci&oacute;n de Reportes</h1>
         <h2>
@@ -22,7 +28,7 @@
         <c:if test="${configuracionReporte == null}">
 			<form action="configuracionreportes?accion=insert" method="post">
         </c:if>
-        <table border="1" cellpadding="5">
+        <table class="table table-hover">
             <caption>
             	<h2>
             		<c:if test="${configuracionReporte != null}">
@@ -93,5 +99,6 @@
         </table>
         </form>
     </div>	
+    </div>
 </body>
 </html>
