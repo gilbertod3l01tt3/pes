@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.dtte.portal.obiee.impl.ConfigOBIIEImpl;
 import com.dtte.portal.obiee.impl.ConfigREPORTEImpl;
-import com.dtte.portal.obiee.impl.ConfigREPORTEROLImpl;
 import com.dtte.portal.obiee.impl.ConfigROLImpl;
 import com.dtte.portal.obiee.impl.RolREPORTEImpl;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
-import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTEROL;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGROL;
+import com.dtte.portal.obiee.model.PORTALBI_ROLREPORTE;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,7 +33,7 @@ public class GeneraURLDinamicaController extends HttpServlet {
 	private ConfigROLImpl rolImpl = new ConfigROLImpl();
 	private Common utils = new Common();
 	private ConfigOBIIEImpl configImpl = new ConfigOBIIEImpl();
-	private ConfigREPORTEROLImpl configReporteRolImpl = new ConfigREPORTEROLImpl();
+	private RolREPORTEImpl configReporteRolImpl = new RolREPORTEImpl();
 	private ConfigREPORTEImpl configReporte = new ConfigREPORTEImpl();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -73,13 +73,13 @@ public class GeneraURLDinamicaController extends HttpServlet {
 
 		// Obteniendo los parámetros del Reporte
 		String idreporte = (String) map.get("reporte");
-		String[] parametrosmandatorios = rolreporteImpl.getMandatoryParam(rol.getIdConfigrol(),
+		String parametrosmandatorios = rolreporteImpl.getMandatoryParam(rol.getIdConfigrol(),
 				Long.valueOf(idreporte));
+		String[] mandatorios = parametrosmandatorios.split(",");
 		// Validar si los parámetros mandatorios se encuentran presentes
-		System.out.println("Los parametros mandatorios son: ");
-		for (int i = 0; i < parametrosmandatorios.length; i++) {
-			String[] separarValores = parametrosmandatorios[i].split("\\|");
-			System.out.println(parametrosmandatorios[i]);
+		for (int i = 0; i < mandatorios.length; i++) {
+			String[] separarValores = mandatorios[i].split("\\|");
+			System.out.println(mandatorios[i]);
 			System.out.println(separarValores);
 			if (!map.containsKey(separarValores[0])) {
 				throw new IOException("Parametros mandatorios no se encuentran en el request");
@@ -87,7 +87,7 @@ public class GeneraURLDinamicaController extends HttpServlet {
 		}
 
 		// Agregando la página si existe al mapa de variables
-		PORTALBI_CONFIGREPORTEROL pagina = configReporteRolImpl.getConfiguration(rol.getIdConfigrol(),
+		PORTALBI_ROLREPORTE pagina = configReporteRolImpl.getConfiguration(rol.getIdConfigrol(),
 				Long.valueOf(idreporte));
 		if (!pagina.getPagina().equals(null)) {
 			map.put("Page", pagina.getPagina());

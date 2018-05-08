@@ -11,13 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dtte.portal.obiee.dao.ConfigREPORTEROLDAO;
-import com.dtte.portal.obiee.impl.ConfigREPORTEROLImpl;
+import com.dtte.portal.obiee.impl.RolREPORTEImpl;
 import com.dtte.portal.obiee.model.Method_Response.ResponseCodes;
 import com.dtte.portal.obiee.model.Method_Response;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
-import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTEROL;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGROL;
+import com.dtte.portal.obiee.model.PORTALBI_ROLREPORTE;
 
 public class ConfiguracionReportesRolController extends HttpServlet {
 
@@ -28,7 +27,7 @@ public class ConfiguracionReportesRolController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private ConfigREPORTEROLDAO Implementacion = new ConfigREPORTEROLImpl();
+	private RolREPORTEImpl Implementacion = new RolREPORTEImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -76,7 +75,7 @@ public class ConfiguracionReportesRolController extends HttpServlet {
 	private void consultarRolPorNombre(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String nombreDespliegue = request.getParameter("NOMBRE_DESPLIEGUE");
 		response.setContentType("text/html; charset=iso-8859-1");
-		PORTALBI_CONFIGREPORTEROL valor = Implementacion.ObtainRolByName(nombreDespliegue);
+		PORTALBI_ROLREPORTE valor = Implementacion.ObtainRolByName(nombreDespliegue);
 		PrintWriter out = response.getWriter();
 		out.println("Esto es una consulta del objeto Rol basado en el nombre");
 		out.println("</br>");
@@ -100,7 +99,7 @@ public class ConfiguracionReportesRolController extends HttpServlet {
 
 	private void listarConfiguraciones(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		java.util.List<PORTALBI_CONFIGREPORTEROL> listaConf = Implementacion.listAllConfigsReportesRol();
+		java.util.List<PORTALBI_ROLREPORTE> listaConf = Implementacion.listAllConfigsReportesRol();
 		request.setAttribute("listaConfiguracionesRoles", listaConf);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/administracion/configuracionReportesRol.jsp");
 		dispatcher.forward(request, response);
@@ -118,7 +117,7 @@ public class ConfiguracionReportesRolController extends HttpServlet {
 		String paramNulos = request.getParameter("nulos");
 		String pagina = request.getParameter("pagina");
 		
-		PORTALBI_CONFIGREPORTEROL newRolConfig = new PORTALBI_CONFIGREPORTEROL();
+		PORTALBI_ROLREPORTE newRolConfig = new PORTALBI_ROLREPORTE();
 		newRolConfig.setIdRol(idRol);
 		newRolConfig.setIdReporte(idReporte);
 		newRolConfig.setNombreDespliegue(nombreDespliegue);
@@ -149,7 +148,7 @@ public class ConfiguracionReportesRolController extends HttpServlet {
 		String idRol = request.getParameter("id");
 		String idReporte = request.getParameter("idReporte");
 		
-		PORTALBI_CONFIGREPORTEROL newConfigRol = Implementacion.getConfiguration(Long.valueOf(idRol), Long.valueOf(idReporte));		
+		PORTALBI_ROLREPORTE newConfigRol = Implementacion.getConfiguration(Long.valueOf(idRol), Long.valueOf(idReporte));		
 		request.setAttribute("configuracionReporteRol", newConfigRol);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/administracion/editarReportesRol.jsp");
 		dispatcher.forward(request, response);
@@ -165,7 +164,7 @@ public class ConfiguracionReportesRolController extends HttpServlet {
 		String paramNulos = request.getParameter("nulos");
 		String pagina = request.getParameter("pagina");
 		
-		PORTALBI_CONFIGREPORTEROL configReporteRol = new PORTALBI_CONFIGREPORTEROL();
+		PORTALBI_ROLREPORTE configReporteRol = new PORTALBI_ROLREPORTE();
 		configReporteRol.setIdRol(idRol);
 		configReporteRol.setIdReporte(idReporte);
 		configReporteRol.setNombreDespliegue(nombreDespliegue);

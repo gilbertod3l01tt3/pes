@@ -41,7 +41,7 @@ public class GeneraOpcionesReportesController extends HttpServlet {
 		out.println("<select id=\"option\">");			
 		out.println("<option value=\"0\">Seleccione una opci&oacute;n</option>");
 		for(int i=0; i<reportes.size(); i++){
-			out.println("<option value="+reportes.get(i).getIdConfigreporte()+">"+reportes.get(i).getNombredespliegue()+"</option>");
+			out.println("<option value="+reportes.get(i).getIdReporte()+">"+reportes.get(i).getNombreDespliegue()+"</option>");
 		}
 		out.println("</select></br>");		
 		

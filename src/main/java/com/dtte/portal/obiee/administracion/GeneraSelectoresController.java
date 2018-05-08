@@ -3,7 +3,9 @@ package com.dtte.portal.obiee.administracion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -72,20 +74,20 @@ public class GeneraSelectoresController extends HttpServlet {
 		String rol = request.getParameter("rol");
 		String idreporte = request.getParameter("reporte");
 		Long idrol = rolImpl.ObtainRolByName(rol).getIdConfigrol();
-		String[] parametrosmandatorios= rolreporteImpl.getMandatoryParam(idrol,Long.valueOf(idreporte));
-		String[] parametrosopcionales= rolreporteImpl.getOptionalParam(idrol,Long.valueOf(idreporte));
-		
-		
+		String parametrosmandatorios= rolreporteImpl.getMandatoryParam(idrol,Long.valueOf(idreporte));
+		String parametrosopcionales= rolreporteImpl.getOptionalParam(idrol,Long.valueOf(idreporte));
 		
 		if(parametrosmandatorios == null && parametrosopcionales == null) {
 			out.println("<input id=\"consultar\" type=\"button\" class=\"btn btn-primary\" value=\"Consultar\"/>");
 		}else {
 			if(parametrosmandatorios != null) {
-				for(int i=0; i<parametrosmandatorios.length; i++){
+				Map<String, String> mandatorios = utils.getVariablesAndValues(parametrosmandatorios);
+				Object[] m = mandatorios.values().toArray();
+				for(int i=0;i<m.length;i++){
 					
-					out.println("<p><strong>"+utils.getVariablesAndValues(parametrosmandatorios[i]).get("")+"</strong></p>");
-					out.println("<select id="+parametrosmandatorios[i]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
-					out.println("<option value=\"0\">Seleccione "+parametrosmandatorios[i]+"</option>");	
+					out.println("<p><strong>"+m[i]+"</strong></p>");
+					out.println("<select id="+m[i]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
+					out.println("<option value=\"0\">Seleccione "+m[i]+"</option>");	
 					
 					///////////Aquí hay que ir al DWH//////////////
 					
@@ -96,11 +98,13 @@ public class GeneraSelectoresController extends HttpServlet {
 				}	
 			}
 			if(parametrosopcionales != null) {
-				for(int k=0; k<parametrosopcionales.length; k++){
+				Map<String, String> opcionales = utils.getVariablesAndValues(parametrosopcionales);
+				Object[] o = opcionales.values().toArray();
+				for(int k=0;k<o.length;k++){
 					
-					out.println("<p><strong>"+parametrosopcionales[k]+"</strong></p>");
-					out.println("<select id="+parametrosopcionales[k]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
-					out.println("<option value=\"0\">Seleccione estado</option>");	
+					out.println("<p><strong>"+o[k]+"</strong></p>");
+					out.println("<select id="+o[k]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
+					out.println("<option value=\"0\">Seleccione "+o[k]+" </option>");	
 					for(int j=0;j<Estados.size();j++) {
 						out.println("<option value="+Estados.get(j)+">"+Estados.get(j)+"</option>");
 					}

@@ -1,142 +1,108 @@
 package com.dtte.portal.obiee.model;
 
 public class PORTALBI_ROLREPORTE {
-	private Long idConfigrol;
-	private Long idConfigreporte;
-    private String nombredespliegue;
-    private int ordendespliegue;
-    private String parametromandatorio;
-    private String parametroopcional;
-    private String parametronulo;
-    private String pagina;
+	private Long idRol;
+	private Long idReporte;
+	private String nombreDespliegue;
+	private int ordenDespliegue;
+	private String parametrosMandatorios;
+	private String parametrosOpcionales;
+	private String parametrosNulos;
+	private String pagina;
+	
+	/**
+	 * Constructor.
+	 */
+	public PORTALBI_ROLREPORTE() {
 
-    public PORTALBI_ROLREPORTE() {
-    }
-    
-	public PORTALBI_ROLREPORTE(Long idConfigrol, Long idConfigreporte, String nombredespliegue, int ordendespliegue,
-			String parametromandatorio, String parametroopcional, String parametronulo, String pagina) {
+	}
+
+	/**
+	 * Constructor.
+	 * @param idRol
+	 * @param idReporte
+	 * @param nombreDespliegue
+	 * @param ordenDespliegue
+	 * @param parametrosMandatorios
+	 * @param parametrosOpcionales
+	 * @param parametrosNulos
+	 * @param pagina
+	 */
+	public PORTALBI_ROLREPORTE(Long idRol, Long idReporte, String nombreDespliegue, int ordenDespliegue,
+			String parametrosMandatorios, String parametrosOpcionales, String parametrosNulos, String pagina) {
 		super();
-		this.idConfigrol = idConfigrol;
-		this.idConfigreporte = idConfigreporte;
-		this.nombredespliegue = nombredespliegue;
-		this.ordendespliegue = ordendespliegue;
-		this.parametromandatorio = parametromandatorio;
-		this.parametroopcional = parametroopcional;
-		this.parametronulo = parametronulo;
+		this.idRol = idRol;
+		this.idReporte = idReporte;
+		this.nombreDespliegue = nombreDespliegue;
+		this.ordenDespliegue = ordenDespliegue;
+		this.parametrosMandatorios = parametrosMandatorios;
+		this.parametrosOpcionales = parametrosOpcionales;
+		this.parametrosNulos = parametrosNulos;
 		this.pagina = pagina;
 	}
 
-	/**
-	 * @return the idConfigrol
-	 */
-	public Long getIdConfigrol() {
-		return idConfigrol;
+	public Long getIdRol() {
+		return idRol;
 	}
 
-	/**
-	 * @param idConfigrol the idConfigrol to set
-	 */
-	public void setIdConfigrol(Long idConfigrol) {
-		this.idConfigrol = idConfigrol;
+	public void setIdRol(Long idRol) {
+		this.idRol = idRol;
 	}
 
-	/**
-	 * @return the idConfigreporte
-	 */
-	public Long getIdConfigreporte() {
-		return idConfigreporte;
+	public Long getIdReporte() {
+		return idReporte;
 	}
 
-	/**
-	 * @param idConfigreporte the idConfigreporte to set
-	 */
-	public void setIdConfigreporte(Long idConfigreporte) {
-		this.idConfigreporte = idConfigreporte;
+	public void setIdReporte(Long idReporte) {
+		this.idReporte = idReporte;
 	}
 
-	/**
-	 * @return the nombredespliegue
-	 */
-	public String getNombredespliegue() {
-		return nombredespliegue;
+	public String getNombreDespliegue() {
+		return nombreDespliegue;
 	}
 
-	/**
-	 * @param nombredespliegue the nombredespliegue to set
-	 */
-	public void setNombredespliegue(String nombredespliegue) {
-		this.nombredespliegue = nombredespliegue;
+	public void setNombreDespliegue(String nombreDespliegue) {
+		this.nombreDespliegue = nombreDespliegue;
 	}
 
-	/**
-	 * @return the ordendespliegue
-	 */
-	public int getOrdendespliegue() {
-		return ordendespliegue;
+	public int getOrdenDespliegue() {
+		return ordenDespliegue;
 	}
 
-	/**
-	 * @param ordendespliegue the ordendespliegue to set
-	 */
-	public void setOrdendespliegue(int ordendespliegue) {
-		this.ordendespliegue = ordendespliegue;
+	public void setOrdenDespliegue(int ordenDespliegue) {
+		this.ordenDespliegue = ordenDespliegue;
 	}
 
-	/**
-	 * @return the parametromandatorio
-	 */
-	public String getParametromandatorio() {
-		return parametromandatorio;
+	public String getParametrosMandatorios() {
+		return parametrosMandatorios;
 	}
 
-	/**
-	 * @param parametromandatorio the parametromandatorio to set
-	 */
-	public void setParametromandatorio(String parametromandatorio) {
-		this.parametromandatorio = parametromandatorio;
+	public void setParametrosMandatorios(String parametrosMandatorios) {
+		this.parametrosMandatorios = parametrosMandatorios;
 	}
 
-	/**
-	 * @return the parametroopcional
-	 */
-	public String getParametroopcional() {
-		return parametroopcional;
+	public String getParametrosOpcionales() {
+		return parametrosOpcionales;
 	}
 
-	/**
-	 * @param parametroopcional the parametroopcional to set
-	 */
-	public void setParametroopcional(String parametroopcional) {
-		this.parametroopcional = parametroopcional;
+	public void setParametrosOpcionales(String parametrosOpcionales) {
+		this.parametrosOpcionales = parametrosOpcionales;
 	}
 
-	/**
-	 * @return the parametronulo
-	 */
-	public String getParametronulo() {
-		return parametronulo;
+	public String getParametrosNulos() {
+		return parametrosNulos;
 	}
 
-	/**
-	 * @param parametronulo the parametronulo to set
-	 */
-	public void setParametronulo(String parametronulo) {
-		this.parametronulo = parametronulo;
+	public void setParametrosNulos(String parametrosNulos) {
+		this.parametrosNulos = parametrosNulos;
 	}
 
-	/**
-	 * @return the pagina
-	 */
 	public String getPagina() {
 		return pagina;
 	}
 
-	/**
-	 * @param pagina the pagina to set
-	 */
 	public void setPagina(String pagina) {
 		this.pagina = pagina;
 	}
-
-	
+		
 }
