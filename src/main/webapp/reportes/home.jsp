@@ -16,19 +16,6 @@
   		<script src="js/bootstrap.min.js"></script>  
   		<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
   		
-  			
-  	    <script>
-			function setURL(){
-				var select = document.getElementById('option');
-				var agent_id = select.options[select.selectedIndex].value;
-				if(agent_id == 1){
-					document.getElementById('ventanaReporte').src = "http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=/shared/Carpeta de Pruebas/_portal/PanelPruebaIntegracion&Page=EstadosSIN&Action=Print&NQUser=usr_Estado&NQPassword=usr_3st4d0";
-				}
-				if(agent_id == 2){
-			    	document.getElementById('ventanaReporte').src = "http://172.31.10.150:9502/analytics/saw.dll?dashboard&PortalPath=%2Fshared%2FSiged%2F_portal%2FCentros%20de%20Trabajo&Action=Navigate&NQUser=usr_Estado&NQPassword=usr_3st4d0&P0=1&P1=eq&P2=%22Ubicacion%22.%22Estado%22&P3=2+Puebla+Tlaxcala";
-				}				
-			}
-		</script>
     </head>
 	<body>
         <div class="wrapper">
@@ -131,10 +118,26 @@
 	           		});
         			
 			       	 $('#selectores').on('click','#consultar',function(){
-			       		 setURL();
-			       		 $('#sidebar').removeClass('active');
-			                $('.overlay').fadeOut(1000);
+			       		var reporteVar = $('#option').val();
+			       		var rolVar = $("#selected_rol").html();
+			       		xhr = new XMLHttpRequest();
+				        xhr.open("POST", "generaUrlDinamica", true);
+				        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+				       	var datosJSON = {rol : rolVar, reporte : reporteVar, '"Ubicacion"."Entidad federativa"':"Aguascalientes"};
+				        //alert(JSON.stringify(datosJSON));
+				        xhr.send(JSON.stringify(datosJSON));
+				        xhr.onload = function () {
+				            if (xhr.readyState === xhr.DONE) {
+				                if (xhr.status === 200) {
+				                    //alert(xhr.response);
+				                    $('#ventanaReporte').attr('src',xhr.responseText);
+				                }
+				            }
+				        };
+			       		$('#sidebar').removeClass('active');
+			            $('.overlay').fadeOut(1000);
 			       	 });
+			       	 
 			           $("#sidebar").mCustomScrollbar({
 			               theme: "minimal"
 			           });

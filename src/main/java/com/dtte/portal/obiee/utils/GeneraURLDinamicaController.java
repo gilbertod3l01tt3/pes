@@ -68,36 +68,39 @@ public class GeneraURLDinamicaController extends HttpServlet {
 		String nombre = (String) map.get("rol");
 		System.out.println("Obteniendo configuracion: " + nombre);
 		PORTALBI_CONFIGROL rol = rolImpl.ObtainRolByName(nombre);
-		// System.out.println("Obteniendo datos desde la base: " + rol.getNombre());
+		System.out.println("Obteniendo datos desde la base: " + rol.getNombre());
 		// System.out.println("Obteniendo datos desde la base/parametro: " +
 
 		// Obteniendo los parámetros del Reporte
 		String idreporte = (String) map.get("reporte");
 		String parametrosmandatorios = rolreporteImpl.getMandatoryParam(rol.getIdConfigrol(),
 				Long.valueOf(idreporte));
+		if(parametrosmandatorios != null) {
 		String[] mandatorios = parametrosmandatorios.split(",");
 		// Validar si los parámetros mandatorios se encuentran presentes
-		for (int i = 0; i < mandatorios.length; i++) {
-			String[] separarValores = mandatorios[i].split("\\|");
-			System.out.println(mandatorios[i]);
-			System.out.println(separarValores);
-			if (!map.containsKey(separarValores[0])) {
-				throw new IOException("Parametros mandatorios no se encuentran en el request");
+			for (int i = 0; i < mandatorios.length; i++) {
+				String[] separarValores = mandatorios[i].split("\\|");
+				System.out.println(mandatorios[i]);
+				System.out.println(separarValores);
+				if (!map.containsKey(separarValores[0])) {
+					throw new IOException("Parametros mandatorios no se encuentran en el request");
+				}
 			}
 		}
-
 		// Agregando la página si existe al mapa de variables
 		PORTALBI_ROLREPORTE pagina = configReporteRolImpl.getConfiguration(rol.getIdConfigrol(),
 				Long.valueOf(idreporte));
-		if (!pagina.getPagina().equals(null)) {
+		if (pagina != null && pagina.getPagina() != null) {
 			map.put("Page", pagina.getPagina());
 		}
-
 		// Trayendo configuración de reporte, path y panel
 		PORTALBI_CONFIGREPORTE reporteExtraido = configReporte.getConfiguration(Long.valueOf(idreporte));
+		System.out.println("Panel"+reporteExtraido.getPanel());
 		
 		map.put("Path", reporteExtraido.getPath());
 		map.put("Panel", reporteExtraido.getPanel());
+
+		
 		// Limpiando el mapa
 		map.remove("rol");
 		map.remove("reporte");
