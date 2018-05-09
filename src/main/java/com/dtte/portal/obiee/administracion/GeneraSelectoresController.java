@@ -82,36 +82,43 @@ public class GeneraSelectoresController extends HttpServlet {
 		}else {
 			if(parametrosmandatorios != null) {
 				Map<String, String> mandatorios = utils.getVariablesAndValues(parametrosmandatorios);
+				Object[] km = mandatorios.keySet().toArray();
+				//System.out.println("mandatorios"+km[0]);
 				Object[] m = mandatorios.values().toArray();
 				for(int i=0;i<m.length;i++){
 					
 					out.println("<p><strong>"+m[i]+"</strong></p>");
-					out.println("<select id="+m[i]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
+					//System.out.println("Escape "+km[i].toString().replaceAll("\"","&#34;").replaceAll("\\s","&#32;"));
+					out.println("<select id="+km[i].toString().replaceAll("\"","&#34;").replaceAll("\\s","&#32;")+" class=\"combos\">");
 					out.println("<option value=\"0\">Seleccione "+m[i]+"</option>");	
 					
 					///////////Aquí hay que ir al DWH//////////////
 					
 					for(int j=0;j<Estados.size();j++) {
-						out.println("<option value="+Estados.get(j)+">"+Estados.get(j)+"</option>");
+						out.println("<option value="+Estados.get(j).toUpperCase()+">"+Estados.get(j)+"</option>");
 					}
 					out.println("</select></br>");	
 				}	
 			}
 			if(parametrosopcionales != null) {
 				Map<String, String> opcionales = utils.getVariablesAndValues(parametrosopcionales);
+				Object[] ko = opcionales.keySet().toArray();
+				System.out.println("opcionales"+ko[0]);
 				Object[] o = opcionales.values().toArray();
 				for(int k=0;k<o.length;k++){
 					
 					out.println("<p><strong>"+o[k]+"</strong></p>");
-					out.println("<select id="+o[k]+" class=\"js-example-basic-multiple\" multiple=\"multiple\">");
+					//out.println("<select id="+ko[k]+" class=\"js-example-basic-multiple combos\" multiple=\"multiple\">");
+					out.println("<select id="+ko[k].toString().replaceAll("\"","&#34;").replaceAll("\\s","&#32;")+" class=\"combos\">");
 					out.println("<option value=\"0\">Seleccione "+o[k]+" </option>");	
 					for(int j=0;j<Estados.size();j++) {
-						out.println("<option value="+Estados.get(j)+">"+Estados.get(j)+"</option>");
+						out.println("<option value="+Estados.get(j).toUpperCase()+">"+Estados.get(j)+"</option>");
 					}
 					out.println("</select></br>");	
 				}				
 			}
 			out.println("<input id=\"consultar\" type=\"button\" class=\"btn btn-primary\" value=\"Consultar\"/>");
+			out.println("<p hidden>");
 		}
 	}
 }

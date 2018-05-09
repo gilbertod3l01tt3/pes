@@ -45,7 +45,9 @@
 				
                 <nav class="navbar navbar-light">
                     <div class="container-fluid">
-
+						<c:forEach var="mandatorio" items="${mandatorios}">
+    						<p>${mandatorio}</p>
+    					</c:forEach>
                         <div class="navbar-header">
                             <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
                                 <i class="glyphicon glyphicon-align-left"></i>
@@ -120,16 +122,27 @@
 			       	 $('#selectores').on('click','#consultar',function(){
 			       		var reporteVar = $('#option').val();
 			       		var rolVar = $("#selected_rol").html();
+			       		var datosJSON = {};
+			       		datosJSON.rol = rolVar;
+			       		datosJSON.reporte = reporteVar;
+			       		var filtro=null;
+			       		var valor=null;
+			       		$(".combos").each(function(index) {
+			       	      //alert(index + ": " + $(this).text());
+			       	      filtro=$(this).attr('id');
+			       	      valor=$(this).val();
+			       	      datosJSON[filtro]=valor;
+			       	  });
+			       		//var datosJSON = {rol : rolVar, reporte : reporteVar};
+			       		
 			       		xhr = new XMLHttpRequest();
 				        xhr.open("POST", "generaUrlDinamica", true);
 				        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-				       	var datosJSON = {rol : rolVar, reporte : reporteVar, '"Ubicacion"."Entidad federativa"':"Aguascalientes"};
-				        //alert(JSON.stringify(datosJSON));
+				        
 				        xhr.send(JSON.stringify(datosJSON));
 				        xhr.onload = function () {
 				            if (xhr.readyState === xhr.DONE) {
 				                if (xhr.status === 200) {
-				                    //alert(xhr.response);
 				                    $('#ventanaReporte').attr('src',xhr.responseText);
 				                }
 				            }
