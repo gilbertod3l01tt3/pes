@@ -95,7 +95,7 @@ public class GeneraSelectoresController extends HttpServlet {
 					///////////Aquí hay que ir al DWH//////////////
 					
 					for(int j=0;j<Estados.size();j++) {
-						out.println("<option value="+Estados.get(j).toUpperCase()+">"+Estados.get(j)+"</option>");
+						out.println("<option value="+Estados.get(j).toUpperCase().replaceAll("\\s","&#32;")+">"+Estados.get(j)+"</option>");
 					}
 					out.println("</select></br>");	
 				}	
@@ -112,7 +112,7 @@ public class GeneraSelectoresController extends HttpServlet {
 					out.println("<select id="+ko[k].toString().replaceAll("\"","&#34;").replaceAll("\\s","&#32;")+" class=\"combos\">");
 					out.println("<option value=\"0\">Seleccione "+o[k]+" </option>");	
 					for(int j=0;j<Estados.size();j++) {
-						out.println("<option value="+Estados.get(j).toUpperCase()+">"+Estados.get(j)+"</option>");
+						out.println("<option value="+Estados.get(j).toUpperCase().replaceAll("\\s","&#32;")+">"+Estados.get(j)+"</option>");
 					}
 					out.println("</select></br>");	
 				}				
