@@ -44,7 +44,7 @@ public class GeneraSelectoresController extends HttpServlet {
 		Estados.add("Campeche");
 		Estados.add("Chiapas");
 		Estados.add("Chihuahua");
-		Estados.add("Ciudad De Mexico");
+		Estados.add("Ciudad De México");
 		Estados.add("Coahuila De Zaragoza");
 		Estados.add("Colima");
 		Estados.add("Durango");
@@ -52,23 +52,23 @@ public class GeneraSelectoresController extends HttpServlet {
 		Estados.add("Guerrero");
 		Estados.add("Hidalgo");
 		Estados.add("Jalisco");
-		Estados.add("Michoaca De Ocampo");
+		Estados.add("México");
+		Estados.add("Michoacán De Ocampo");
 		Estados.add("Morelos");
-		Estados.add("Mexico");
 		Estados.add("Nayarit");
 		Estados.add("Nuevo Leon");
 		Estados.add("Oaxaca");
 		Estados.add("Puebla");
-		Estados.add("Queretaro");
+		Estados.add("Querétaro");
 		Estados.add("Quintana Roo");
-		Estados.add("San Luis Potosi");
+		Estados.add("San Luis Potosí");
 		Estados.add("Sinaloa");
 		Estados.add("Sonora");
 		Estados.add("Tabasco");
 		Estados.add("Tamaulipas");
 		Estados.add("Tlaxcala");
-		Estados.add("Veracruz Ignacio De Llave");
-		Estados.add("Yucatan");
+		Estados.add("Veracruz De Ignacio De La Llave");
+		Estados.add("Yucatán");
 		Estados.add("Zacatecas");
 		// Obtengo los datos de la peticion
 		String rol = request.getParameter("rol");
@@ -85,7 +85,7 @@ public class GeneraSelectoresController extends HttpServlet {
 				Object[] km = mandatorios.keySet().toArray();
 				//System.out.println("mandatorios"+km[0]);
 				Object[] m = mandatorios.values().toArray();
-				for(int i=0;i<m.length;i++){
+				for(int i=0;i<m.length;i++){ 
 					
 					out.println("<p><strong>"+m[i]+"</strong></p>");
 					//System.out.println("Escape "+km[i].toString().replaceAll("\"","&#34;").replaceAll("\\s","&#32;"));
@@ -93,11 +93,14 @@ public class GeneraSelectoresController extends HttpServlet {
 					out.println("<option value=\"0\">Seleccione "+m[i]+"</option>");	
 					
 					///////////Aquí hay que ir al DWH//////////////
-					
-					for(int j=0;j<Estados.size();j++) {
-						out.println("<option value="+Estados.get(j).toUpperCase().replaceAll("\\s","&#32;")+">"+Estados.get(j)+"</option>");
+					switch(m[i].toString()) {
+					case "Estado":	for(int j=0;j<Estados.size();j++) {
+										out.println("<option value="+Estados.get(j).toUpperCase().replaceAll("\\s","&#32;")+">"+Estados.get(j)+"</option>");
+									}
+									out.println("</select></br>");
+									break;
 					}
-					out.println("</select></br>");	
+						
 				}	
 			}
 			if(parametrosopcionales != null) {
