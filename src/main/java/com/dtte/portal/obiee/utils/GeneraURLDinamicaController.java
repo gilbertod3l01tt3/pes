@@ -55,12 +55,14 @@ public class GeneraURLDinamicaController extends HttpServlet {
 			System.out.println(json1);
 		}
 
+		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> map = new HashMap<String, Object>();
 		// Pasando json string a mapa
 		map = mapper.readValue(json1, new TypeReference<Map<String, String>>() {
 		});
 		System.out.println(map);
+		
 		if (!(map.containsKey("rol") && (map.containsKey("reporte"))))
 			throw new IOException("Parametros mandatorios no se encuentran en el request");
 

@@ -26,7 +26,6 @@ package com.dtte.portal.obiee;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -36,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
+
 import com.microsoft.aad.adal4j.AuthenticationResult;
 
 public class LoginController  extends HttpServlet{
@@ -57,6 +57,7 @@ public class LoginController  extends HttpServlet{
         if (result == null) {
             request.setAttribute("error", new Exception("AuthenticationResult not found in session."));
             response.sendRedirect("error.jsp");
+            return;
         } else {
             String[] data;
             try {
@@ -67,44 +68,73 @@ public class LoginController  extends HttpServlet{
             } catch (Exception e) {
             	request.setAttribute("error", e);
             	request.getRequestDispatcher("/error.jsp").forward(request, response);
+            	return;
             }
         }
         request.getRequestDispatcher("/reportes/home.jsp").forward(request, response);
+		
+		/*
+		try {
+            request.setAttribute("roles", new String[] { "Estado", "Presidente" });
+            request.setAttribute("userInfo", null);
+        } catch (Exception e) {
+        	request.setAttribute("error", e);
+        	request.getRequestDispatcher("/error.jsp").forward(request, response);
+        	return;
+        }
+		
+		request.getRequestDispatcher("/reportes/administracion.jsp").forward(request, response);
+		*/
     }
 
-   private String[] getRolFromGraph(AuthenticationResult result, String tenant) throws Exception {
-    URL url = new URL(null,String.format("https://graph.windows.net/%s/users/%s/memberOf?api-version=1.6", 
-    		tenant,
-    		result.getUserInfo().getUniqueId()),
-            new sun.net.www.protocol.https.Handler());
-
-    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    // Set the appropriate header fields in the request header.
-    conn.setRequestProperty("api-version", "1.6");
-    conn.setRequestProperty("Authorization", result.getAccessToken());
-    conn.setRequestProperty("Accept", "application/json;odata=minimalmetadata");
-    String goodRespStr = HttpClientHelper.getResponseStringFromConn(conn, true);
-    // logger.info("goodRespStr ->" + goodRespStr);
-    int responseCode = conn.getResponseCode();
-    JSONObject response = HttpClientHelper.processGoodRespStr(responseCode, goodRespStr);
-    JSONArray groups = new JSONArray();;
-    //User user = new User();
-    //JSONObject JSONuser = JSONHelper.fetchDirectoryObjectJSONObject(response);
-    //JSONHelper.convertJSONObjectToDirectoryObject(JSONuser, user);
-    //return user.jobTitle;
-    
-    groups = JSONHelper.fetchDirectoryObjectJSONArray(response);
-    
-    StringBuilder builder = new StringBuilder();
-    String[] array = new String[groups.length()];
-    for (int i = 0; i < groups.length(); i++) {
-        JSONObject thisGroupJSONObject = groups.optJSONObject(i);
-        //user = new User();
-        //JSONHelper.convertJSONObjectToDirectoryObject(thisGroupJSONObject, user);
-        array[i] = thisGroupJSONObject.getString("displayName");
-        //builder.append(thisGroupJSONObject.getString("displayName")+ ",");
-    }
-    return array;
+	private String[] getRolFromGraph(AuthenticationResult result, String tenant) throws Exception {
+		URL url = new URL(null,String.format("https://graph.windows.net/%s/users/%s/memberOf?api-version=1.6", 
+				tenant,
+				result.getUserInfo().getUniqueId()),
+		        new sun.net.www.protocol.https.Handler());
+		
+		HttpURLConnection conn = null;
+		int responseCode = 0;
+		String goodRespStr = null;
+		try 
+		{
+			conn = (HttpURLConnection) url.openConnection();
+			// Set the appropriate header fields in the request header.
+			conn.setRequestProperty("api-version", "1.6");
+			conn.setRequestProperty("Authorization", result.getAccessToken());
+			conn.setRequestProperty("Accept", "application/json;odata=minimalmetadata");
+			goodRespStr = HttpClientHelper.getResponseStringFromConn(conn, true);
+			// logger.info("goodRespStr ->" + goodRespStr);
+			responseCode = conn.getResponseCode();
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
+			return null;
+		} finally {
+			if (conn != null)
+				conn.disconnect();
+		}
+		
+		JSONObject response = HttpClientHelper.processGoodRespStr(responseCode, goodRespStr);
+		JSONArray groups = new JSONArray();
+		//User user = new User();
+		//JSONObject JSONuser = JSONHelper.fetchDirectoryObjectJSONObject(response);
+		//JSONHelper.convertJSONObjectToDirectoryObject(JSONuser, user);
+		//return user.jobTitle;
+		
+		groups = JSONHelper.fetchDirectoryObjectJSONArray(response);
+		
+		StringBuilder builder = new StringBuilder();
+		String[] array = new String[groups.length()];
+		for (int i = 0; i < groups.length(); i++) {
+		    JSONObject thisGroupJSONObject = groups.optJSONObject(i);
+		    //user = new User();
+		    //JSONHelper.convertJSONObjectToDirectoryObject(thisGroupJSONObject, user);
+		    array[i] = thisGroupJSONObject.getString("displayName");
+		    //builder.append(thisGroupJSONObject.getString("displayName")+ ",");
+		}
+		
+		return array;
    }
+	
 }
 

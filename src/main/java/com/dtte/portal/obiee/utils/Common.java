@@ -71,6 +71,7 @@ public class Common {
 		}
 		int cuentaParametros = map.size();
 		if (cuentaParametros >= 1) {
+			
 			urlDin.append("&P0=");
 			urlDin.append(cuentaParametros);
 			urlDin.append("&P1=eq");
@@ -95,6 +96,10 @@ public class Common {
 					urlDin.append(value);
 					j = j + 2;
 				}
+			}
+			
+			if (map.containsKey("\"Ubicacion\".\"Entidad federativa\"")) {
+				urlDin.append("&disabledFilters=0");
 			}
 		}
 		return urlDin.toString();

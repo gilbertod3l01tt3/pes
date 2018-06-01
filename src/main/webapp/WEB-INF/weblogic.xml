@@ -4,5 +4,5 @@
     <wls:keepgenerated>true</wls:keepgenerated>
     <wls:debug>true</wls:debug>
   </wls:jsp-descriptor>
-  <wls:context-root>/PORTALOBIEE</wls:context-root>
+  <wls:context-root>PORTALOBIEE</wls:context-root>
 </wls:weblogic-web-app>

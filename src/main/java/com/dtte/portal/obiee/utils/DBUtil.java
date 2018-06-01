@@ -8,7 +8,19 @@ import javax.sql.DataSource;
 public class DBUtil {
 	private static DataSource dataSource;
 	private static final String  JNDI_LOOKUP_SERVICE = "sepTambor";
-	static{
+	
+	static {
+		initializeDataSource();
+	}
+	
+	public static DataSource getDataSource() {
+		if (dataSource == null) {
+			initializeDataSource();
+		}
+		return dataSource;
+	}
+	
+	private static void initializeDataSource() {
 		try {
 			Context context = new InitialContext();
 			Object lookup = context.lookup(JNDI_LOOKUP_SERVICE);
@@ -20,8 +32,5 @@ public class DBUtil {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-	}
-	public static DataSource getDataSource(){
-		return dataSource;
 	}
 }

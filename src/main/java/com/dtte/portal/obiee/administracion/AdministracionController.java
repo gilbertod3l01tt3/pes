@@ -1,6 +1,10 @@
 package com.dtte.portal.obiee.administracion;
 
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Scanner;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +34,9 @@ public class AdministracionController extends HttpServlet {
 		 * quees.getParametro().toString()); out.println("Renglon 1 / Valor: " +
 		 * quees.getValor()); } catch ( SQLException e) { e.printStackTrace(); }
 		 */
+		
+		
+		
 		request.getRequestDispatcher("/reportes/administracion.jsp").forward(request, response);
 	}
 

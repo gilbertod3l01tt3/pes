@@ -95,7 +95,7 @@ public class GeneraSelectoresController extends HttpServlet {
 					///////////Aquí hay que ir al DWH//////////////
 					switch(m[i].toString()) {
 					case "Estado":	for(int j=0;j<Estados.size();j++) {
-										out.println("<option value="+Estados.get(j).toUpperCase().replaceAll("\\s","&#32;")+">"+Estados.get(j)+"</option>");
+										out.println("<option value=" + Estados.get(j).toUpperCase().replaceAll("\\s","&#32;")+">"+Estados.get(j)+"</option>");
 									}
 									out.println("</select></br>");
 									break;

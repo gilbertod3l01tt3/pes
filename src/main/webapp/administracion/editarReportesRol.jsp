@@ -122,5 +122,10 @@
         </form>
     </div>	
     </div>
+    
+    <div id="dynamicReport">
+		<c:out value='${dynamicReport}'/>
+	</div>
+    
 </body>
 </html>

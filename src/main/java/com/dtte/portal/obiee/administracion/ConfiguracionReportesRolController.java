@@ -3,7 +3,10 @@ package com.dtte.portal.obiee.administracion;
 import java.awt.List;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -101,9 +104,32 @@ public class ConfiguracionReportesRolController extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		java.util.List<PORTALBI_ROLREPORTE> listaConf = Implementacion.listAllConfigsReportesRol();
 		request.setAttribute("listaConfiguracionesRoles", listaConf);
+		
+		String html = GenerateHtml();
+		request.setAttribute("dynamicReport", html);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/administracion/configuracionReportesRol.jsp");
 		dispatcher.forward(request, response);
 	}
+	
+	public String GenerateHtml() {
+    	String content = null;
+    	URLConnection connection = null;
+    	try {
+    		String path = "http://172.31.10.150:9502/analytics/saw.dll?Dashboard&NQUser=usr_Estado&NQPassword=usr_3st4d0&Action=Navigate&PortalPath=/shared/Carpeta%20de%20Pruebas/_portal/PanelPruebaIntegracion&Page=Principal&P0=1&P1=eq&P2=%22Ubicacion%22.%22Entidad%20federativa%22&P3=1+AGUASCALIENTES&disabledFilters=0,1,2,3,4";
+    		connection =  new URL(path).openConnection();
+    		connection.setRequestProperty("user-agent", "Chrome");
+    		Scanner scanner = new Scanner(connection.getInputStream());
+    		scanner.useDelimiter("\\Z");
+    		content = scanner.next();
+    		scanner.close();
+    	}catch ( Exception ex ) {
+    	    ex.printStackTrace();
+    	}
+    	System.out.println(content);
+    	
+    	return content;
+    }
 
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String strOrdenDespliegue = request.getParameter("orden").length() == 0 ? "0" : request.getParameter("orden");
