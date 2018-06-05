@@ -1,8 +1,15 @@
 package com.dtte.portal.obiee.impl;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.dtte.portal.obiee.dao.ConfigROLDAO;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGROL;
@@ -142,6 +149,29 @@ public class ConfigROLImpl implements ConfigROLDAO {
 
 	@Override
 	public PORTALBI_CONFIGROL ObtainRolByName(String nombreRol) {
+		Reader reader = null;
+		SqlSession session = null;
+		try {
+			reader = Resources.getResourceAsReader("mybatis-config.xml");
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);		
+			session = sqlSessionFactory.openSession();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if (reader != null)
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					System.err.println("Error cerrando reader en ObtainRolByName");
+				}
+		}
+		
+		PORTALBI_CONFIGROL result = session.selectOne("CONFIGROL.getByName", nombreRol.toUpperCase());
+		return result;
+		
+		
+		/*
 		PORTALBI_CONFIGROL configRol = new PORTALBI_CONFIGROL();
 		String sql = "select * from PORTALBI_CONFIGROL where NOMBRE='" + nombreRol.toUpperCase() + "'";
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
@@ -161,6 +191,7 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			e.printStackTrace();
 		}
 		return configRol;
+		*/
 	}
 
 }

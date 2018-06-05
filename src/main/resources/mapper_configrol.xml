@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CONFIGROL">
+
+	<resultMap id="configRolResultSet" type="com.dtte.portal.obiee.model.PORTALBI_CONFIGROL">
+		<result property = "idConfigrol" column = "ID_CONFIGROL"/>
+	   	<result property = "parametro" column = "PARAMETRO"/>
+	   	<result property = "nombre" column = "NOMBRE"/>
+	</resultMap>
+	
+	<select id="getAll" resultMap = "configRolResultSet">
+	   SELECT * FROM PORTALBI_CONFIGROL 
+	   ORDER BY ID_CONFIGROL
+	</select>
+	
+	<select id="getByName" parameterType="String" resultMap="configRolResultSet">
+	   SELECT * FROM PORTALBI_CONFIGROL 
+	   WHERE NOMBRE = #{nombre}
+	</select>
+
+</mapper>
