@@ -5,11 +5,9 @@
 <configuration>
 	<properties resource="db.properties" />
 	
-	<!--  
 	<typeAliases>
-		<typeAlias type="#package.#modelname" alias="#modelname"></typeAlias>
+		<typeAlias type="com.dtte.portal.obiee.model.PORTALBI_CONFIGROL" alias="PORTALBI_CONFIGROL"></typeAlias>
 	</typeAliases>
-	-->
 	
 	<environments default="development">
 		<environment id="development">

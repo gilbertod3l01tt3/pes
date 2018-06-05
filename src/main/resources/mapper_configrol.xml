@@ -4,7 +4,7 @@
 
 <mapper namespace="CONFIGROL">
 
-	<resultMap id="configRolResultSet" type="com.dtte.portal.obiee.model.PORTALBI_CONFIGROL">
+	<resultMap id="configRolResultSet" type="PORTALBI_CONFIGROL">
 		<result property = "idConfigrol" column = "ID_CONFIGROL"/>
 	   	<result property = "parametro" column = "PARAMETRO"/>
 	   	<result property = "nombre" column = "NOMBRE"/>
