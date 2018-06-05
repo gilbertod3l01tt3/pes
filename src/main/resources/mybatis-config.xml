@@ -7,6 +7,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.dtte.portal.obiee.model.PORTALBI_CONFIGROL" alias="PORTALBI_CONFIGROL"></typeAlias>
+		<typeAlias type="com.dtte.portal.obiee.model.PORTALBI_ROLREPORTE" alias="PORTALBI_ROLREPORTE"></typeAlias>
 	</typeAliases>
 	
 	<environments default="development">
@@ -22,5 +23,6 @@
 	</environments>
 	<mappers>
 		<mapper resource="mapper_configrol.xml" />
+		<mapper resource="mapper_rolreporte.xml" />
 	</mappers>
 </configuration>

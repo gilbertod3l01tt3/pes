@@ -10,34 +10,46 @@ import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGROL;
 import com.dtte.portal.obiee.model.PORTALBI_ROLREPORTE;
 import com.dtte.portal.obiee.model.Method_Response.ResponseCodes;
+import com.dtte.portal.obiee.model.PORTALBI_ConnectionManager;
 import com.dtte.portal.obiee.utils.DBUtil;
 
 public class RolREPORTEImpl implements RolREPORTEDAO {
+	
 	public List<PORTALBI_ROLREPORTE> listAllConfigsReportesRol() {
-		List<PORTALBI_ROLREPORTE> listConfig = new ArrayList<>();
-		String sql = "SELECT * FROM PORTALBI_ROLREPORTE order by ID_CONFIGROL, ID_CONFIGREPORTE";
-		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
-				java.sql.Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery(sql)) {
-
-			while (resultSet.next()) {
-				long idRol = resultSet.getLong("ID_CONFIGROL");
-				long idReporte = resultSet.getLong("ID_CONFIGREPORTE");
-				String nombreDespliegue = resultSet.getString("NOMBREDESPLIEGUE");
-				int ordenDespliegue = resultSet.getInt("ORDENDESPLIEGUE");
-				String paramOpcionales = resultSet.getString("PARAMETROOPCIONAL");
-				String paramMandatorios = resultSet.getString("PARAMETROMANDATORIO");
-				String paramNulos = resultSet.getString("PARAMETRONULO");
-				String pagina = resultSet.getString("PAGINA");
-				PORTALBI_ROLREPORTE configReporteRol = new PORTALBI_ROLREPORTE(idRol, idReporte, nombreDespliegue, ordenDespliegue, 
-						paramOpcionales, paramMandatorios, paramNulos, pagina);
-				listConfig.add(configReporteRol);
-			}
+//		List<PORTALBI_ROLREPORTE> listConfig = new ArrayList<>();
+//		String sql = "SELECT * FROM PORTALBI_ROLREPORTE order by ID_CONFIGROL, ID_CONFIGREPORTE";
+//		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+//				java.sql.Statement statement = connection.createStatement();
+//				ResultSet resultSet = statement.executeQuery(sql)) {
+//
+//			while (resultSet.next()) {
+//				long idRol = resultSet.getLong("ID_CONFIGROL");
+//				long idReporte = resultSet.getLong("ID_CONFIGREPORTE");
+//				String nombreDespliegue = resultSet.getString("NOMBREDESPLIEGUE");
+//				int ordenDespliegue = resultSet.getInt("ORDENDESPLIEGUE");
+//				String paramOpcionales = resultSet.getString("PARAMETROOPCIONAL");
+//				String paramMandatorios = resultSet.getString("PARAMETROMANDATORIO");
+//				String paramNulos = resultSet.getString("PARAMETRONULO");
+//				String pagina = resultSet.getString("PAGINA");
+//				PORTALBI_ROLREPORTE configReporteRol = new PORTALBI_ROLREPORTE(idRol, idReporte, nombreDespliegue, ordenDespliegue, 
+//						paramOpcionales, paramMandatorios, paramNulos, pagina);
+//				listConfig.add(configReporteRol);
+//			}
+//		} catch (Exception e) {
+//			System.out.println("Excepcion al traer las configuraciones de Reportes-Roles" + e);
+//			e.printStackTrace();
+//		}
+//		return listConfig;
+		
+		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
+			List<PORTALBI_ROLREPORTE> result = conn.getSession().selectList("ROLREPORTE.selectAll");
+			return result;
 		} catch (Exception e) {
-			System.out.println("Excepcion al traer las configuraciones de Reportes-Roles" + e);
 			e.printStackTrace();
 		}
-		return listConfig;
+		
+		return new ArrayList<PORTALBI_ROLREPORTE>();
+		
 	}
 	
 	@Override
