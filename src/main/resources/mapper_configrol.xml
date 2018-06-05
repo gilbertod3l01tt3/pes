@@ -4,20 +4,51 @@
 
 <mapper namespace="CONFIGROL">
 
-	<resultMap id="configRolResultSet" type="PORTALBI_CONFIGROL">
+	<resultMap id="configRolResultMap" type="PORTALBI_CONFIGROL">
 		<result property = "idConfigrol" column = "ID_CONFIGROL"/>
 	   	<result property = "parametro" column = "PARAMETRO"/>
 	   	<result property = "nombre" column = "NOMBRE"/>
 	</resultMap>
 	
-	<select id="getAll" resultMap = "configRolResultSet">
-	   SELECT * FROM PORTALBI_CONFIGROL 
+	<select id="selectAll" resultMap = "configRolResultMap">
+	   SELECT * 
+	   FROM PORTALBI_CONFIGROL 
 	   ORDER BY ID_CONFIGROL
 	</select>
 	
-	<select id="getByName" parameterType="String" resultMap="configRolResultSet">
-	   SELECT * FROM PORTALBI_CONFIGROL 
-	   WHERE NOMBRE = #{nombre}
+	<select id="selectByName" parameterType="String" resultMap="configRolResultMap">
+   		SELECT * 
+   		FROM PORTALBI_CONFIGROL 
+   		WHERE NOMBRE = #{nombre}
 	</select>
-
+	
+	<select id="selectById" parameterType="Long" resultMap="configRolResultMap">
+		SELECT * 
+	   	FROM PORTALBI_CONFIGROL 
+	   	WHERE ID_CONFIGROL = #{id}
+	</select>
+	
+	<select id="selectMaxId" resultType="int">
+		SELECT MAX (ID_CONFIGROL) 
+		FROM PORTALBI_CONFIGROL
+	</select>
+	
+	<insert id="insert" parameterType="PORTALBI_CONFIGROL">
+	  	INSERT INTO PORTALBI_CONFIGROL (ID_CONFIGROL,NOMBRE,PARAMETRO)	  	
+	  	VALUES (#{idConfigrol}, #{nombre}, #{parametro})
+	</insert>
+	
+	<delete id='delete' parameterType="Long">
+		DELETE 
+		FROM PORTALBI_CONFIGROL 
+		WHERE ID_CONFIGROL= #{id}
+	</delete>
+	
+	<update id='update' parameterType="PORTALBI_CONFIGROL">
+		UPDATE PORTALBI_CONFIGROL 
+		set
+		 PARAMETRO=#{parametro},
+		 NOMBRE=#{nombre} 
+		WHERE ID_CONFIGROL=#{idConfigrol}
+	</update>
 </mapper>
