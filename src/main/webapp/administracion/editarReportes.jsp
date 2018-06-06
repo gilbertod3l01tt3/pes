@@ -45,10 +45,9 @@
              <tr>
                 <th>Identificador: </th>
                 <td>
-                	<!-- <input type="text" name="id" size="10" readonly="readonly" -->
-                	<input type="text" name="id" size="10"
+                	<input type="text" name="id" size="10" readonly="readonly"
                 			value="<c:out value='${configuracionReporte.idConfigreporte}'/>"
-                		/>
+                	/>
                 </td>
             </tr>
             <tr>

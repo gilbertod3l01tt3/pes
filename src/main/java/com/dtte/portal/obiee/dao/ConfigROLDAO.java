@@ -8,7 +8,7 @@ public interface ConfigROLDAO {
 
 	List<PORTALBI_CONFIGROL> listAllConfigsRol();
 
-	int getLastCounter();
+	int getMaxId();
 
 	boolean insert(PORTALBI_CONFIGROL configuracion);
 

@@ -127,18 +127,22 @@ public class ConfiguracionReportesController extends HttpServlet {
 		String nombre = request.getParameter("nombre");
 
 		PORTALBI_CONFIGREPORTE newReporteConfig = new PORTALBI_CONFIGREPORTE();
-		newReporteConfig.setIdConfigreporte(Long.valueOf(request.getParameter("id")));
-		newReporteConfig.setParametro(parametro);
-		newReporteConfig.setNombre(nombre);
-		newReporteConfig.setEstatus(Integer.parseInt(request.getParameter("estatus")));
-		newReporteConfig.setPanel(request.getParameter("panel"));
-		newReporteConfig.setPath(request.getParameter("path"));
-
-		if (Implementacion.insert(newReporteConfig)) {
-			response.sendRedirect("configuracionreportes?accion=listar");
-		} else {
-			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		int maximoIndice = Implementacion.getMaxId();
+		if (maximoIndice > 0) {
+			newReporteConfig.setIdConfigreporte(Long.valueOf(maximoIndice + 1));
+			newReporteConfig.setParametro(parametro);
+			newReporteConfig.setNombre(nombre);
+			newReporteConfig.setEstatus(Integer.parseInt(request.getParameter("estatus")));
+			newReporteConfig.setPanel(request.getParameter("panel"));
+			newReporteConfig.setPath(request.getParameter("path"));
+	
+			if (Implementacion.insert(newReporteConfig)) {
+				response.sendRedirect("configuracionreportes?accion=listar");
+			} else {
+				request.getRequestDispatcher("/error.jsp").forward(request, response);
+			}
 		}
+		request.getRequestDispatcher("/error.jsp").forward(request, response);
 	}
 
 }

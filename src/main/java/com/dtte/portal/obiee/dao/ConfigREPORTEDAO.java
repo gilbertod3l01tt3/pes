@@ -15,5 +15,7 @@ public interface ConfigREPORTEDAO {
 	boolean insert(PORTALBI_CONFIGREPORTE newReporteConfig);
 
 	boolean delete(Long identifier);
+	
+	int getMaxId();
 
 }

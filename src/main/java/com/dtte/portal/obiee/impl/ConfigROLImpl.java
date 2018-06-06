@@ -29,12 +29,12 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			System.out.println("Excepcion al traer las configuraciones de Roles" + e);
 			e.printStackTrace();
 		}
-		return listConfig;
-		*/
+		return listConfig;*/
 		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
 			List<PORTALBI_CONFIGROL> result = conn.getSession().selectList("CONFIGROL.selectAll");
 			return result;
 		} catch (Exception e) {
+			System.out.println("Excepcion al traer las configuraciones de Roles" + e);
 			e.printStackTrace();
 		}
 		return new ArrayList<PORTALBI_CONFIGROL>();
@@ -43,7 +43,7 @@ public class ConfigROLImpl implements ConfigROLDAO {
 	}
 
 	@Override
-	public int getLastCounter() {
+	public int getMaxId() {
 		/*String sql = "select max (ID_CONFIGROL) from PORTALBI_CONFIGROL";
 		int maximo = 0;
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
@@ -60,12 +60,12 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			System.out.println("Excepcion al obtener el máximo registro" + e);
 			e.printStackTrace();
 		}
-		return maximo;
-		*/
+		return maximo;*/
 		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
 			int result = conn.getSession().selectOne("CONFIGROL.selectMaxId");
 			return result;
 		} catch (Exception e) {
+			System.out.println("Excepcion al obtener el maximo registro" + e);
 			e.printStackTrace();
 		}
 		return -1;
@@ -89,13 +89,13 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			e.printStackTrace();
 			System.out.println("Excepcion al insertar registro" + e);
 		}
-		return bandera;
-		*/
+		return bandera;*/
 		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
 			int result = conn.getSession().insert("CONFIGROL.insert", configuracion);
 			conn.getSession().commit();
 			return result > 0;
 		} catch (Exception e) {
+			System.out.println("Excepcion al insertar registro" + e);
 			e.printStackTrace();
 		}
 		return false;
@@ -117,13 +117,13 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			e.printStackTrace();
 			System.out.println("Excepcion al borrar registro" + e);
 		}
-		return bandera;
-		*/
+		return bandera;*/
 		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
 			int result = conn.getSession().delete("CONFIGROL.delete", identificador);
 			conn.getSession().commit();
 			return result > 0;
 		} catch (Exception e) {
+			System.out.println("Excepcion al borrar registro" + e);
 			e.printStackTrace();
 		}
 		return false;
@@ -148,13 +148,13 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			e.printStackTrace();
 			System.out.println("Excepcion al insertar registro" + e);
 		}
-		return bandera;
-		*/
+		return bandera;*/
 		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
 			int result = conn.getSession().update("CONFIGROL.update", newConfigRol);
 			conn.getSession().commit();
 			return result > 0;
 		} catch (Exception e) {
+			System.out.println("Excepcion al actualizar registro" + e);
 			e.printStackTrace();
 		}
 		return false;
@@ -181,12 +181,12 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			System.out.println("Excepción al consultar configuración " + e);
 			e.printStackTrace();
 		}
-		return configRol;
-		*/
+		return configRol;*/
 		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
 			PORTALBI_CONFIGROL result = conn.getSession().selectOne("CONFIGROL.selectById", configuracionRol);
 			return result;
 		} catch (Exception e) {
+			System.out.println("Excepcion al consultar configuracion por ID" + e);
 			e.printStackTrace();
 		}
 		return new PORTALBI_CONFIGROL();
@@ -198,6 +198,7 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			PORTALBI_CONFIGROL result = conn.getSession().selectOne("CONFIGROL.selectByName", nombreRol.toUpperCase());
 			return result;
 		} catch (Exception e) {
+			System.out.println("Excepcion al consultar configuracion por rol " + e);
 			e.printStackTrace();
 		}
 		return new PORTALBI_CONFIGROL();
@@ -221,8 +222,7 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			System.out.println("Excepción al consultar configuración por Rol " + e);
 			e.printStackTrace();
 		}
-		return configRol;
-		*/
+		return configRol;*/
 	}
 
 }

@@ -103,7 +103,7 @@ public class ConfiguracionRolesController extends HttpServlet {
 		PORTALBI_CONFIGROL newRolConfig = new PORTALBI_CONFIGROL();
 		newRolConfig.setParametro(parametro);
 		newRolConfig.setNombre(nombre);
-		int maximoIndice = Implementacion.getLastCounter();
+		int maximoIndice = Implementacion.getMaxId();
 		if (maximoIndice > 0) {
 			newRolConfig.setIdConfigrol(Long.valueOf(maximoIndice + 1));
 			if (Implementacion.insert(newRolConfig)) {
