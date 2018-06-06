@@ -7,7 +7,7 @@ public interface ConfigOBIIEDAO {
 
 	List<PORTALBI_CONFIGOBIEE> listAllConfigs();
 
-	int getLastCounter();
+	int getMaxId();
 
 	boolean insert(PORTALBI_CONFIGOBIEE configuracion);
 

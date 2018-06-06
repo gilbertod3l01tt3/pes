@@ -161,7 +161,7 @@ public class ConfigROLImpl implements ConfigROLDAO {
 	}
 	
 	@Override
-	public PORTALBI_CONFIGROL getConfiguration(Long configuracionRol) {
+	public PORTALBI_CONFIGROL getConfiguration(Long ID) {
 		/*PORTALBI_CONFIGROL configRol = new PORTALBI_CONFIGROL();
 		String sql = "SELECT * FROM PORTALBI_CONFIGROL where ID_CONFIGROL=" + configuracionRol;
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
@@ -183,7 +183,7 @@ public class ConfigROLImpl implements ConfigROLDAO {
 		}
 		return configRol;*/
 		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
-			PORTALBI_CONFIGROL result = conn.getSession().selectOne("CONFIGROL.selectById", configuracionRol);
+			PORTALBI_CONFIGROL result = conn.getSession().selectOne("CONFIGROL.selectById", ID);
 			return result;
 		} catch (Exception e) {
 			System.out.println("Excepcion al consultar configuracion por ID" + e);

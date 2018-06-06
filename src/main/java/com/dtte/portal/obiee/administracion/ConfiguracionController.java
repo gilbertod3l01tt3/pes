@@ -107,7 +107,7 @@ public class ConfiguracionController extends HttpServlet {
 		PORTALBI_CONFIGOBIEE newConfig = new PORTALBI_CONFIGOBIEE();
 		newConfig.setParametro(parametro);
 		newConfig.setValor(valor);
-		int maximoIndice = Implementacion.getLastCounter();
+		int maximoIndice = Implementacion.getMaxId();
 		if (maximoIndice > 0) {
 			newConfig.setIdConfigobiee(Long.valueOf(maximoIndice + 1));
 			if (Implementacion.insert(newConfig)) {

@@ -12,7 +12,7 @@ public interface RolREPORTEDAO {
 	List<PORTALBI_CONFIGROL> listAllConfigsRol();
 	List<PORTALBI_CONFIGREPORTE> listAllConfigsReporte();
 
-	int getLastCounter(long idRol);
+	int selectMaxId(long idRol);
 
 	Method_Response insert(PORTALBI_ROLREPORTE configuracion);
 

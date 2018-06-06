@@ -44,7 +44,7 @@ public class RolREPORTEImpl implements RolREPORTEDAO {
 	}
 
 	@Override
-	public int getLastCounter(long rolId) {
+	public int selectMaxId(long rolId) {
 		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
 			int result = conn.getSession().selectOne("ROLREPORTE.selectLastCounter");
 			return result;

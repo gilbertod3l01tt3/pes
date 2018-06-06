@@ -37,7 +37,7 @@
 		WHERE ID_CONFIGROL = #{idRol}
 	</select>
 	
-	<select id="selectManadatory" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
+	<select id="selectMandatory" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
 		SELECT PARAMETROMANDATORIO FROM PORTALBI_ROLREPORTE
 				WHERE ID_CONFIGROL= #{idRol} 
 					AND ID_CONFIGREPORTE= #{idReporte}
@@ -55,7 +55,7 @@
 					AND ID_CONFIGREPORTE= #{idReporte}
 	</select>
 	
-	<select id="selectLastCounter" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
+	<select id="selectMaxId" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
 	   SELECT MAX (ID_CONFIGREPORTE) FROM PORTALBI_ROLREPORTE 
 	   WHERE ID_CONFIGROL = #{idRol}
 	</select>
