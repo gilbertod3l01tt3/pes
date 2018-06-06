@@ -1,25 +1,17 @@
 package com.dtte.portal.obiee.impl;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import com.dtte.portal.obiee.dao.ConfigROLDAO;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGROL;
-import com.dtte.portal.obiee.utils.DBUtil;
+import com.dtte.portal.obiee.model.PORTALBI_ConnectionManager;
 
 public class ConfigROLImpl implements ConfigROLDAO {
 
 	@Override
 	public List<PORTALBI_CONFIGROL> listAllConfigsRol() {
-		List<PORTALBI_CONFIGROL> listConfig = new ArrayList<>();
+		/*List<PORTALBI_CONFIGROL> listConfig = new ArrayList<>();
 		String sql = "SELECT * FROM PORTALBI_CONFIGROL order by ID_CONFIGROL";
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.Statement statement = connection.createStatement();
@@ -38,11 +30,21 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			e.printStackTrace();
 		}
 		return listConfig;
+		*/
+		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
+			List<PORTALBI_CONFIGROL> result = conn.getSession().selectList("CONFIGROL.selectAll");
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<PORTALBI_CONFIGROL>();
+		
+		
 	}
 
 	@Override
 	public int getLastCounter() {
-		String sql = "select max (ID_CONFIGROL) from PORTALBI_CONFIGROL";
+		/*String sql = "select max (ID_CONFIGROL) from PORTALBI_CONFIGROL";
 		int maximo = 0;
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.Statement statement = connection.createStatement();
@@ -59,11 +61,19 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			e.printStackTrace();
 		}
 		return maximo;
+		*/
+		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
+			int result = conn.getSession().selectOne("CONFIGROL.selectMaxId");
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 	@Override
 	public boolean insert(PORTALBI_CONFIGROL configuracion) {
-		boolean bandera = false;
+		/*boolean bandera = false;
 		String sql = "insert into PORTALBI_CONFIGROL (ID_CONFIGROL,NOMBRE,PARAMETRO) VALUES (?,?,?)";
 
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
@@ -80,11 +90,20 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			System.out.println("Excepcion al insertar registro" + e);
 		}
 		return bandera;
+		*/
+		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
+			int result = conn.getSession().insert("CONFIGROL.insert", configuracion);
+			conn.getSession().commit();
+			return result > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
-	public boolean delete(Long entificador) {
-		boolean bandera = false;
+	public boolean delete(Long identificador) {
+		/*boolean bandera = false;
 		String sql = "delete from PORTALBI_CONFIGROL where ID_CONFIGROL=?";
 
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
@@ -99,11 +118,51 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			System.out.println("Excepcion al borrar registro" + e);
 		}
 		return bandera;
+		*/
+		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
+			int result = conn.getSession().delete("CONFIGROL.delete", identificador);
+			conn.getSession().commit();
+			return result > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
+	
+	@Override
+	public boolean update(PORTALBI_CONFIGROL newConfigRol) {
+		/*boolean bandera = false;
+		String sql = "update PORTALBI_CONFIGROL set PARAMETRO=?,NOMBRE=? WHERE ID_CONFIGROL=?";
 
+		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
+				java.sql.PreparedStatement ps = connection.prepareStatement(sql);) {
+
+			System.out.println("Actualizando registro de configROL");
+
+			ps.setLong(3, newConfigRol.getIdConfigrol());
+			ps.setString(1, newConfigRol.getParametro());
+			ps.setString(2, newConfigRol.getNombre());
+
+			bandera = ps.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Excepcion al insertar registro" + e);
+		}
+		return bandera;
+		*/
+		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
+			int result = conn.getSession().update("CONFIGROL.update", newConfigRol);
+			conn.getSession().commit();
+			return result > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	@Override
 	public PORTALBI_CONFIGROL getConfiguration(Long configuracionRol) {
-		PORTALBI_CONFIGROL configRol = new PORTALBI_CONFIGROL();
+		/*PORTALBI_CONFIGROL configRol = new PORTALBI_CONFIGROL();
 		String sql = "SELECT * FROM PORTALBI_CONFIGROL where ID_CONFIGROL=" + configuracionRol;
 		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
 				java.sql.Statement statement = connection.createStatement();
@@ -123,53 +182,25 @@ public class ConfigROLImpl implements ConfigROLDAO {
 			e.printStackTrace();
 		}
 		return configRol;
-	}
-
-	@Override
-	public boolean update(PORTALBI_CONFIGROL newConfigRol) {
-		boolean bandera = false;
-		String sql = "update PORTALBI_CONFIGROL set PARAMETRO=?,NOMBRE=? WHERE ID_CONFIGROL=?";
-
-		try (java.sql.Connection connection = DBUtil.getDataSource().getConnection();
-				java.sql.PreparedStatement ps = connection.prepareStatement(sql);) {
-
-			System.out.println("Actualizando registro de configROL");
-
-			ps.setLong(3, newConfigRol.getIdConfigrol());
-			ps.setString(1, newConfigRol.getParametro());
-			ps.setString(2, newConfigRol.getNombre());
-
-			bandera = ps.executeUpdate() > 0;
+		*/
+		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
+			PORTALBI_CONFIGROL result = conn.getSession().selectOne("CONFIGROL.selectById", configuracionRol);
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Excepcion al insertar registro" + e);
 		}
-		return bandera;
+		return new PORTALBI_CONFIGROL();
 	}
 
 	@Override
 	public PORTALBI_CONFIGROL ObtainRolByName(String nombreRol) {
-		Reader reader = null;
-		SqlSession session = null;
-		try {
-			reader = Resources.getResourceAsReader("mybatis-config.xml");
-			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);		
-			session = sqlSessionFactory.openSession();
-		} catch (IOException e) {
+		try (PORTALBI_ConnectionManager conn = new PORTALBI_ConnectionManager()) {
+			PORTALBI_CONFIGROL result = conn.getSession().selectOne("CONFIGROL.selectByName", nombreRol.toUpperCase());
+			return result;
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			if (reader != null)
-				try {
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-					System.err.println("Error cerrando reader en ObtainRolByName");
-				}
 		}
-		
-		PORTALBI_CONFIGROL result = session.selectOne("CONFIGROL.getByName", nombreRol.toUpperCase());
-		return result;
-		
+		return new PORTALBI_CONFIGROL();
 		
 		/*
 		PORTALBI_CONFIGROL configRol = new PORTALBI_CONFIGROL();

@@ -12,11 +12,11 @@ public interface ConfigROLDAO {
 
 	boolean insert(PORTALBI_CONFIGROL configuracion);
 
-	boolean delete(Long identificador);
-
-	PORTALBI_CONFIGROL getConfiguration(Long configuracionRolId);
+	boolean delete(Long identificador);	
 
 	boolean update(PORTALBI_CONFIGROL newConfigRol);
+	
+	PORTALBI_CONFIGROL getConfiguration(Long configuracionRolId);
 
 	PORTALBI_CONFIGROL ObtainRolByName(String nombreRol);
 
