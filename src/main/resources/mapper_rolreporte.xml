@@ -4,9 +4,9 @@
 
 <mapper namespace="ROLREPORTE">
 
-	<resultMap id="rolReporteMapSet" type="PORTALBI_ROLREPORTE">
-		<result property = "idRol" column = "ID_ROL"/>
-		<result property = "idReporte" column = "ID_REPORTE"/>
+	<resultMap id="rolReporteResultMap" type="PORTALBI_ROLREPORTE">
+		<result property = "idRol" column = "ID_CONFIGROL"/>
+		<result property = "idReporte" column = "ID_CONFIGREPORTE"/>
 		<result property = "nombreDespliegue" column = "NOMBREDESPLIEGUE"/>
 		<result property = "ordenDespliegue" column = "ORDENDESPLIEGUE"/>
 	   	<result property = "parametrosMandatorios" column = "PARAMETROMANDATORIO"/>
@@ -15,20 +15,69 @@
 	   	<result property = "pagina" column = "PAGINA"/>
 	</resultMap>
 	
-	<select id="selectAll" resultMap = "rolReporteMapSet">
+	<select id="selectSingle" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
+		SELECT *
+			FROM PORTALBI_ROLREPORTE 
+			WHERE ID_CONFIGROL = #{idRol} 
+				AND ID_CONFIGREPORTE = #{idReporte}
+	</select>
+	
+	<select id="selectSingleByNombre" parameterType="String" resultMap="rolReporteResultMap">
+		SELECT * FROM PORTALBI_ROLREPORTE 
+			WHERE NOMBREDESPLIEGUE = '#{nombreDespliegue}'
+	</select>
+	
+	<select id="selectAll" resultMap = "rolReporteResultMap">
 	   SELECT * FROM PORTALBI_ROLREPORTE
 	   ORDER BY ID_CONFIGROL, ID_CONFIGREPORTE
 	</select>
 	
-	<select id="selectByIdRolIdReporte" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteMapSet">
-	   SELECT * FROM PORTALBI_ROLREPORTE
-	   WHERE ID_REPORTE = #{idReporte}
-	   AND ID_ROL = #{idRol}
+	<select id="selectReportsByRol" parameterType="Long" resultMap="rolReporteResultMap">
+		SELECT * FROM PORTALBI_ROLREPORTE 
+		WHERE ID_CONFIGROL = #{idRol}
 	</select>
 	
-	<select id="selectByIdReporte" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteMapSet">
-	   SELECT * FROM PORTALBI_ROLREPORTE
-	   WHERE ID_REPORTE = #{idReporte}
+	<select id="selectManadatory" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
+		SELECT PARAMETROMANDATORIO FROM PORTALBI_ROLREPORTE
+				WHERE ID_CONFIGROL= #{idRol} 
+					AND ID_CONFIGREPORTE= #{idReporte}
 	</select>
+	
+	<select id="selectOptional" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
+		SELECT PARAMETROOPCIONAL FROM PORTALBI_ROLREPORTE
+				WHERE ID_CONFIGROL= #{idRol} 
+					AND ID_CONFIGREPORTE= #{idReporte}
+	</select>
+	
+	<select id="selectNull" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
+		SELECT PARAMETRONULO FROM PORTALBI_ROLREPORTE
+				WHERE ID_CONFIGROL= #{idRol} 
+					AND ID_CONFIGREPORTE= #{idReporte}
+	</select>
+	
+	<select id="selectLastCounter" parameterType="PORTALBI_ROLREPORTE" resultMap="rolReporteResultMap">
+	   SELECT MAX (ID_CONFIGREPORTE) FROM PORTALBI_ROLREPORTE 
+	   WHERE ID_CONFIGROL = #{idRol}
+	</select>
+	
+	
+	<insert id="insert" parameterType="PORTALBI_ROLREPORTE">
+	   INSERT INTO PORTALBI_ROLREPORTE (ID_CONFIGROL,ID_CONFIGREPORTE,NOMBREDESPLIEGUE,ORDENDESPLIEGUE,
+	   			PARAMETROMANDATORIO,PARAMETROOPCIONAL,PARAMETRONULO,PAGINA)
+			VALUES (#{idRol},#{idReporte},#{nombreDespliegue},#{ordenDespliegue},
+				#{parametrosMandatorios},#{parametrosOpcionales},#{parametrosNulos},#{pagina})
+	</insert>
+	
+	<delete id="delete" parameterType="PORTALBI_ROLREPORTE">
+		DELETE FROM PORTALBI_ROLREPORTE 
+		WHERE ID_CONFIGROL = #{idRol} and ID_CONFIGREPORTE = #{idReporte}
+	</delete>
+	
+	<update id="update" parameterType="PORTALBI_ROLREPORTE">
+	   UPDATE PORTALBI_ROLREPORTE set NOMBREDESPLIEGUE=#{nombreDespliegue},ORDENDESPLIEGUE=#{ordenDespliegue},PARAMETROMANDATORIO=#{parametrosMandatorios},
+				PARAMETROOPCIONAL=#{parametrosOpcionales}, PARAMETRONULO=#{parametrosNulos}, PAGINA=#{pagina} 
+			WHERE ID_CONFIGROL=#{idRol} 
+				AND ID_CONFIGREPORTE=#{idReporte}
+	</update>
 
 </mapper>
