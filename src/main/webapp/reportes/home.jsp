@@ -86,11 +86,44 @@
 		           			$("#ventanaReporte").attr("src","");
 			            		           		
 			           		// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			       			$.post('generaOpcionesReportes', {
-			       				rol : rolVar
-			       			}, function(responseText) {
-			       				$('#reportes').html(responseText);
-			       			});
+			       			//$.post('generaOpcionesReportes', {
+			       			//	rol : rolVar
+			       			//}, function(responseText) {
+			       			//	$('#reportes').html(responseText);
+			       			//});
+		           			$.post({"generaOpcionesReportes",{
+		           				rol : rolVar
+		           			},
+		           				        success: function (data) {
+		           				 			alert(data);
+		           				            //$.each(data, function (index, article) {
+		           				 
+		           				              //  var td_categories = $("<td/>");
+		           				              //  $.each(article.categories, function (i, tag) {
+		           				              //      var span = $("<span class='label label-info' style='margin:4px;padding:4px' />");
+		           				              //      span.text(tag);
+		           				              //      td_categories.append(span);
+		           				              //  });
+		           				 
+		           				              //  var td_tags = $("<td/>");
+		           				              //  $.each(article.tags, function (i, tag) {
+		           				              //      var span = $("<span class='label' style='margin:4px;padding:4px' />");
+		           				              //      span.text(tag);
+		           				              //      td_tags.append(span);
+		           				              //  });
+		           				 
+		           				              //  $("#added-articles").append($('<tr/>')
+		           				              //          .append($('<td/>').html("<a href='"+article.url+"'>"+article.title+"</a>"))
+		           				              //          .append(td_categories)
+		           				              //          .append(td_tags)
+		           				              //  );
+		           				 
+		           				            //}); 
+		           				        },
+		           				        error:function(data,status,er) {
+		           				            alert("error: "+data+" status: "+status+" er:"+er);
+		           				        }
+		           				    });
 		           		});
         			}else{
         				var rolVar =  "${roles[0]}";
