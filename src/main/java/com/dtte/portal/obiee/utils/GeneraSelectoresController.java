@@ -17,7 +17,6 @@ import com.dtte.portal.obiee.impl.ConfigREPORTEImpl;
 import com.dtte.portal.obiee.impl.ConfigROLImpl;
 import com.dtte.portal.obiee.impl.RolREPORTEImpl;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
-import com.dtte.portal.obiee.model.SelectorResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GeneraSelectoresController extends HttpServlet {

@@ -80,6 +80,9 @@
         <div class="overlay"></div>
         <script type="text/javascript">
         $(document).ready(function () {
+        
+        	$('#consultar').hide();
+        
         	var n = "${fn:length(roles)}";
         	if(n > 1){
         		$('#rol').on('change',function(){  
@@ -199,7 +202,7 @@
         		});
         	});
         	
-        	$('#selectores').on('click','#consultar',function(){
+        	$('#consultar').on('click', function(){
         		var reporteVar = $('#option').val();
         		var rolVar = $("#selected_rol").html();
         		var datosJSON = {};
