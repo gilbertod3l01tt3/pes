@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.dtte.portal.obiee.impl.ConfigREPORTEImpl;
 import com.dtte.portal.obiee.impl.ConfigROLImpl;
 import com.dtte.portal.obiee.impl.RolREPORTEImpl;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
+import com.dtte.portal.obiee.model.SelectorResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GeneraSelectoresController extends HttpServlet {
@@ -37,7 +39,7 @@ public class GeneraSelectoresController extends HttpServlet {
 			throws IOException, ServletException {
 		
 		List<Object> lista = new ArrayList<Object>();
-	//  Se crea un objectmapper
+		
         ObjectMapper mapper = new ObjectMapper(); 
         response.setContentType("application/json"); 
         
@@ -93,46 +95,11 @@ public class GeneraSelectoresController extends HttpServlet {
 			if(parametrosmandatorios != null) {
 				Map<String, String> mandatorios = utils.getVariablesAndValues(parametrosmandatorios);
 				lista.add(mandatorios);
-				//Object[] km = mandatorios.keySet().toArray();
-				//System.out.println("mandatorios"+km[0]);
-				//Object[] m = mandatorios.values().toArray();
-				//mapper.writeValue(response.getOutputStream(), mandatorios);
-				/*for(int i=0;i<m.length;i++){ 
-					
-					out.println("<p><strong>"+m[i]+"</strong></p>");
-					//System.out.println("Escape "+km[i].toString().replaceAll("\"","&#34;").replaceAll("\\s","&#32;"));
-					out.println("<select id="+km[i].toString().replaceAll("\"","&#34;").replaceAll("\\s","&#32;")+" class=\"combos\">");
-					out.println("<option value=\"0\">Seleccione "+m[i]+"</option>");	
-					
-					///////////Aquí hay que ir al DWH//////////////
-					switch(m[i].toString()) {
-					case "Estado":	for(int j=0;j<Estados.size();j++) {
-										out.println("<option value=" + Estados.get(j).toUpperCase().replaceAll("\\s","&#32;")+">"+Estados.get(j)+"</option>");
-									}
-									out.println("</select></br>");
-									break;
-					}
-						
-				}*/	
 			}
 			if(parametrosopcionales != null) {
 				Map<String, String> opcionales = utils.getVariablesAndValues(parametrosopcionales);
 				lista.add(opcionales);
-				//Object[] ko = opcionales.keySet().toArray();
-				//System.out.println("opcionales"+ko[0]);
-				//Object[] o = opcionales.values().toArray();
-				//mapper.writeValue(response.getOutputStream(), opcionales);
-				/*for(int k=0;k<o.length;k++){
 					
-					out.println("<p><strong>"+o[k]+"</strong></p>");
-					//out.println("<select id="+ko[k]+" class=\"js-example-basic-multiple combos\" multiple=\"multiple\">");
-					out.println("<select id="+ko[k].toString().replaceAll("\"","&#34;").replaceAll("\\s","&#32;")+" class=\"combos\">");
-					out.println("<option value=\"0\">Seleccione "+o[k]+" </option>");	
-					for(int j=0;j<Estados.size();j++) {
-						out.println("<option value="+Estados.get(j).toUpperCase().replaceAll("\\s","&#32;")+">"+Estados.get(j)+"</option>");
-					}
-					out.println("</select></br>");	
-				}		*/		
 			}
 			
 			mapper.writeValue(response.getOutputStream(), lista);

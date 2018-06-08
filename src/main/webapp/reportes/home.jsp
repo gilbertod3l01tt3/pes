@@ -39,6 +39,7 @@
                 </div>
 				<div id="reportes"></div>
 				<div id="selectores"></div>
+				<input id="consultar" type="button" class="btn btn-primary" value="Consultar" style="display:hidden;"/>
             </nav>
 
             <!-- Page Content Holder -->
@@ -53,6 +54,12 @@
                             <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span>Buscar</span>
+                            </button>
+                        </div>
+                         <div style="float:right;">
+                        	<button type="button" id="btnLogout" class="btn btn-warning navbar-btn">
+                                <i class="glyphicon"></i>
+                                <span>Logout</span>
                             </button>
                         </div>
                         <span class="navbar-text">
@@ -118,30 +125,75 @@
         	   		});
         		}
         	}
+        	
         	$('#reportes').on('change',"#option",function(){  
         		$('#selectores').html("");
         		var reporteVar = $('#option').val();
         		var rolVar = $("#selected_rol").html();
-        		// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+        		
         		$.post('generaSelectores', {
         			reporte : reporteVar,
         			rol : rolVar
         		}, function(responseText){
         			var html="";
-        			$.each(responseText, function (index, parametros) {  
-        				var keys=Object.keys(parametros);
-        				//console.log(parametros);
-        				//console.log(keys);        				
-        				$.each(parametros, function(i, parametro){        					
-        					console.log(parametro);
-        					html+="<p><strong>"+parametro+"</strong></p>";
-        					html+="<select id="+String(i).replace(/[\""]/g,'\&#34;').replace(/([ /])/g,'\&#32;')+" class=\"combos\">";
-        					html+="<option value=\"0\">Seleccione "+parametro+"</option>";
-        					/////////llenar combos
-        					html+="</select></br>";
-        				});
-        	        });
+        			var edos = [
+        				"Aguascalientes",
+						"Baja California",
+						"Baja California Sur",
+						"Campeche",
+						"Chiapas",
+						"Chihuahua",
+						"Ciudad De México",
+						"Coahuila De Zaragoza",
+						"Colima",
+						"Durango",
+						"Guanajuato",
+						"Guerrero",
+						"Hidalgo",
+						"Jalisco",
+						"México",
+						"Michoacán De Ocampo",
+						"Morelos",
+						"Nayarit",
+						"Nuevo Leon",
+						"Oaxaca",
+						"Puebla",
+						"Querétaro",
+						"Quintana Roo",
+						"San Luis Potosí",
+						"Sinaloa",
+						"Sonora",
+						"Tabasco",
+						"Tamaulipas",
+						"Tlaxcala",
+						"Veracruz De Ignacio De La Llave",
+						"Yucatán",
+						"Zacatecas"];
+        			if (responseText !== undefined) {
+        				$.each(responseText, function (index, parametros) {  
+	        				var keys=Object.keys(parametros);
+	        				//console.log(parametros);
+	        				//console.log(keys);        				
+	        				$.each(parametros, function(i, parametro) {
+	        					console.log(parametro);
+	        					html+="<p><strong>"+parametro+"</strong></p>";
+	        					html+="<select id="+String(i).replace(/[\""]/g,'\&#34;').replace(/([ /])/g,'\&#32;')+" class=\"combos\">";
+	        					html+="<option value=\"0\">Seleccione "+parametro+"</option>";
+	        					// Llenar combos
+	        					if (parametro.toLowerCase().includes("estado")) {
+	        						$.each(edos, function (index, edo) {  
+	        							html+="<option value=\"parametro_" + i + "\">" + edo + "</option>";
+	        						});
+	        					}
+	        					
+	        					html+="</select></br>";
+	        				});
+	        	        });
+       				}
+       				
+       				
         			$('#selectores').html(html);
+        			$('#consultar').show();
         		}).fail(function(error){
         			console.log(error);
         		});
@@ -193,6 +245,10 @@
                $('.collapse.in').toggleClass('in');
                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
            });
+           
+           $('#btnLogout').click(function() {
+				window.location.href = 'home?accion=logout';
+			});
         });
         </script>
 	</body>

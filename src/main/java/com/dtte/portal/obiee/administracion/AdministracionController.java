@@ -22,20 +22,6 @@ public class AdministracionController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		/*
-		 * try { response.setContentType("text/html; charset=iso-8859-1"); PrintWriter
-		 * out = response.getWriter(); out.println("Esto es un renglon");
-		 * out.println("</br>"); //
-		 * out.println("Valores de tabla: "+configMapper.getConfig()); try {
-		 * 
-		 * PORTALBI_CONFIGOBIEE quees = new ConfigOBIIEImpl().listAllConfigs().get(1);
-		 * out.println("Valores usando jdbc "); out.println("Renglon 1 / ID: " +
-		 * quees.getIdConfigobiee()); out.println("Renglon 1 / Parametro: " +
-		 * quees.getParametro().toString()); out.println("Renglon 1 / Valor: " +
-		 * quees.getValor()); } catch ( SQLException e) { e.printStackTrace(); }
-		 */
-		
-		
 		
 		request.getRequestDispatcher("/reportes/administracion.jsp").forward(request, response);
 	}

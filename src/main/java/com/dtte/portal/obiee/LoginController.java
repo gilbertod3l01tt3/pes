@@ -24,8 +24,11 @@
  ******************************************************************************/
 package com.dtte.portal.obiee;
 
+import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -52,6 +55,18 @@ public class LoginController  extends HttpServlet{
 	@Override 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
+		String action = request.getParameter("accion");
+		
+		if (action != null)
+		{
+			switch (action) {
+				case "logout":
+					logout(request, response);
+					return;
+					
+			}
+		}
+		
 		HttpSession session = request.getSession();
         AuthenticationResult result = (AuthenticationResult) session.getAttribute(AuthHelper.PRINCIPAL_SESSION_NAME);
         if (result == null) {
@@ -86,6 +101,15 @@ public class LoginController  extends HttpServlet{
 		request.getRequestDispatcher("/reportes/administracion.jsp").forward(request, response);
 		*/
     }
+	
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tenant = request.getSession().getServletContext().getInitParameter("tenant");
+		String currentUri = URLEncoder.encode(request.getRequestURL().toString(), "UTF-8");
+		String location = "https://login.microsoftonline.com/" + tenant + "/oauth2/logout?post_logout_redirect_uri=" + currentUri;
+		
+	    request.getSession().removeAttribute(AuthHelper.PRINCIPAL_SESSION_NAME);
+		response.sendRedirect(location);
+	}
 
 	private String[] getRolFromGraph(AuthenticationResult result, String tenant) throws Exception {
 		URL url = new URL(null,String.format("https://graph.windows.net/%s/users/%s/memberOf?api-version=1.6", 

@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 /**
- * Base class that has properties to connect to the DB through MyBatis.
+ * Clase base que maneja la conexión de la BD con MyBatis.
  * @author llopezmalo
  *
  */
@@ -20,7 +20,7 @@ public class PORTALBI_ConnectionManager implements AutoCloseable {
 	private String configFile;
 	
 	/**
-	 * Al crear la instancia de objeto ya se tiene inicializada la sesión de BD.
+	 * Al crear la instancia de objeto se inicializa la sesión de BD.
 	 */
 	public PORTALBI_ConnectionManager() {
 		this("mybatis-config.xml");
@@ -66,6 +66,10 @@ public class PORTALBI_ConnectionManager implements AutoCloseable {
 			session.close();
 	}
 	
+	/**
+	 * Obtiene el objeto de sesión sql.
+	 * @return
+	 */
 	public SqlSession getSession() {
 		return session;
 	}
