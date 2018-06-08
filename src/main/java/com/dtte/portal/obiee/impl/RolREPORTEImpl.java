@@ -193,7 +193,7 @@ public class RolREPORTEImpl implements RolREPORTEDAO {
 			p.setIdRol(rol);
 			p.setIdReporte(reporte);
 			PORTALBI_ROLREPORTE result = conn.getSession().selectOne("ROLREPORTE.selectOptional", p);
-			return result.getParametrosMandatorios();
+			return result.getParametrosOpcionales();
 		} catch (Exception e) {
 			System.out.println("Excepcion al obtener parametros" + e);
 			e.printStackTrace();
@@ -209,7 +209,7 @@ public class RolREPORTEImpl implements RolREPORTEDAO {
 			p.setIdRol(rol);
 			p.setIdReporte(reporte);
 			PORTALBI_ROLREPORTE result = conn.getSession().selectOne("ROLREPORTE.selectNull", p);
-			return result.getParametrosMandatorios();
+			return result.getParametrosNulos();
 		} catch (Exception e) {
 			System.out.println("Excepcion al obtener parametros" + e);
 			e.printStackTrace();

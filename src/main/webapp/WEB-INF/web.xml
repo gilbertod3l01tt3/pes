@@ -128,7 +128,7 @@
 	</servlet-mapping>	
 	<servlet>
 		<servlet-name>GeneraOpcionesReportesController</servlet-name>
-		<servlet-class>com.dtte.portal.obiee.administracion.GeneraOpcionesReportesController</servlet-class>
+		<servlet-class>com.dtte.portal.obiee.utils.GeneraOpcionesReportesController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GeneraOpcionesReportesController</servlet-name>
@@ -152,7 +152,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>GeneraSelectoresController</servlet-name>
-		<servlet-class>com.dtte.portal.obiee.administracion.GeneraSelectoresController</servlet-class>
+		<servlet-class>com.dtte.portal.obiee.utils.GeneraSelectoresController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GeneraSelectoresController</servlet-name>

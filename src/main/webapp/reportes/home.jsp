@@ -16,6 +16,7 @@
   		<script src="js/bootstrap.min.js"></script>  
   		<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
   		
+  		
     </head>
 	<body>
         <div class="wrapper">
@@ -70,137 +71,129 @@
             </div>
         </div>
         <div class="overlay"></div>
-
-       	<script type="text/javascript">
-        	$(document).ready(function () {
-        			var a = "${fn:length(roles)}";
-        			if(a > 1){
-		           		$('#rol').on('change',function(){  
-		           			var rolVar = $('#rol').val();
-		           			if(rolVar == 0){
-		           				$("#selected_rol").html("Sin seleccionar");
-		           				$('#reportes').html("");
-		           			}else{
-		           				$("#selected_rol").html(rolVar);
-		           			}
-		           			$("#ventanaReporte").attr("src","");
-			            		           		
-			           		// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-			       			//$.post('generaOpcionesReportes', {
-			       			//	rol : rolVar
-			       			//}, function(responseText) {
-			       			//	$('#reportes').html(responseText);
-			       			//});
-		           			$.post({"generaOpcionesReportes",{
-		           				rol : rolVar
-		           			},
-		           				        success: function (data) {
-		           				 			alert(data);
-		           				            //$.each(data, function (index, article) {
-		           				 
-		           				              //  var td_categories = $("<td/>");
-		           				              //  $.each(article.categories, function (i, tag) {
-		           				              //      var span = $("<span class='label label-info' style='margin:4px;padding:4px' />");
-		           				              //      span.text(tag);
-		           				              //      td_categories.append(span);
-		           				              //  });
-		           				 
-		           				              //  var td_tags = $("<td/>");
-		           				              //  $.each(article.tags, function (i, tag) {
-		           				              //      var span = $("<span class='label' style='margin:4px;padding:4px' />");
-		           				              //      span.text(tag);
-		           				              //      td_tags.append(span);
-		           				              //  });
-		           				 
-		           				              //  $("#added-articles").append($('<tr/>')
-		           				              //          .append($('<td/>').html("<a href='"+article.url+"'>"+article.title+"</a>"))
-		           				              //          .append(td_categories)
-		           				              //          .append(td_tags)
-		           				              //  );
-		           				 
-		           				            //}); 
-		           				        },
-		           				        error:function(data,status,er) {
-		           				            alert("error: "+data+" status: "+status+" er:"+er);
-		           				        }
-		           				    });
-		           		});
+        <script type="text/javascript">
+        $(document).ready(function () {
+        	var n = "${fn:length(roles)}";
+        	if(n > 1){
+        		$('#rol').on('change',function(){  
+        			var rolVar = $('#rol').val();
+        			if(rolVar == 0){
+        				$("#selected_rol").html("Sin seleccionar");
+        				$('#reportes').html("");
         			}else{
-        				var rolVar =  "${roles[0]}";
-        				if(rolVar == "Administrador"){
-        					window.location.href = 'administracion';
-        				}else{
-	        				$("#rolDiv").html("");
-	        				$("#selected_rol").html(rolVar);
-	        				$.post('generaOpcionesReportes', {
-			       				rol : rolVar
-			       			}, function(responseText) {
-			       				$('#reportes').html(responseText);
-			       			});
-        				}
+        				$("#selected_rol").html(rolVar);
         			}
-        			$('#reportes').on('change',"#option",function(){  
-        				$('#selectores').html("");
-	           			var reporteVar = $('#option').val();
-	           			var rolVar = $("#selected_rol").html();
-		           		// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
-		       			$.post('generaSelectores', {
-		       				reporte : reporteVar,
-		       				rol : rolVar
-		       			}, function(responseText) {
-		       				$('#selectores').html(responseText);
-		       			});
-	           		});
-        			
-			       	 $('#selectores').on('click','#consultar',function(){
-			       		var reporteVar = $('#option').val();
-			       		var rolVar = $("#selected_rol").html();
-			       		var datosJSON = {};
-			       		datosJSON.rol = rolVar;
-			       		datosJSON.reporte = reporteVar;
-			       		var filtro=null;
-			       		var valor=null;
-			       		$(".combos").each(function(index) {
-			       	      //alert(index + ": " + $(this).text());
-			       	      filtro=$(this).attr('id');
-			       	      valor=$(this).val();
-			       	      datosJSON[filtro]=valor;
-			       	  });
-			       		//var datosJSON = {rol : rolVar, reporte : reporteVar};
-			       		
-			       		xhr = new XMLHttpRequest();
-				        xhr.open("POST", "generaUrlDinamica", true);
-				        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-				        
-				        xhr.send(JSON.stringify(datosJSON));
-				        xhr.onload = function () {
-				            if (xhr.readyState === xhr.DONE) {
-				                if (xhr.status === 200) {
-				                    $('#ventanaReporte').attr('src',xhr.responseText);
-				                }
-				            }
-				        };
-			       		$('#sidebar').removeClass('active');
-			            $('.overlay').fadeOut(1000);
-			       	 });
-			       	 
-			           $("#sidebar").mCustomScrollbar({
-			               theme: "minimal"
-			           });
-			
-			           $('#dismiss, .overlay').on('click', function () {
-			               $('#sidebar').removeClass('active');
-			               $('.overlay').fadeOut();
-			           });
-			
-			           $('#sidebarCollapse').on('click', function () {
-			               $('#sidebar').addClass('active');
-			               $('.overlay').fadeIn();
-			               $('.collapse.in').toggleClass('in');
-			               $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-			           });
-		            });
-        </script>    
-        
-    </body>
+        			$("#ventanaReporte").attr("src","");
+        	    		           		
+        	   		// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+        			$.post('generaOpcionesReportes', {
+        				rol : rolVar
+        			}, function(responseText) {
+        				console.log("respuesta:"+responseText);
+        				$('#reportes').html(responseText);
+        			}).fail(function(error){
+        	   			console.log(error);
+        	   		});
+        		});
+        	}else{
+        		var rolVar =  "${roles[0]}";
+        		if(rolVar == "Administrador"){
+        			window.location.href = 'administracion';
+        		}else{
+        			$("#rolDiv").html("");
+        			$("#selected_rol").html(rolVar);
+        			$.post('generaOpcionesReportes', {
+        				rol : rolVar
+        			}, function(responseText) {
+        				var html="<p><strong>Reporte a visualizar:</strong></p><select id=\"option\">";
+        				html+="<option value=\"0\">Seleccione una opci&oacute;n</option>";
+        				$.each(responseText, function (index, reporte) {
+        	            	
+        	            	html+="<option value="+reporte.idReporte+">"+reporte.nombreDespliegue+"</option>";
+        	            });
+        				html+="</select></br>";
+        				$('#reportes').html(html);
+        			}).fail(function(error){
+        	   			console.log(error);
+        	   		});
+        		}
+        	}
+        	$('#reportes').on('change',"#option",function(){  
+        		$('#selectores').html("");
+        		var reporteVar = $('#option').val();
+        		var rolVar = $("#selected_rol").html();
+        		// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
+        		$.post('generaSelectores', {
+        			reporte : reporteVar,
+        			rol : rolVar
+        		}, function(responseText){
+        			var html="";
+        			$.each(responseText, function (index, parametros) {  
+        				var keys=Object.keys(parametros);
+        				//console.log(parametros);
+        				//console.log(keys);        				
+        				$.each(parametros, function(i, parametro){        					
+        					console.log(parametro);
+        					html+="<p><strong>"+parametro+"</strong></p>";
+        					html+="<select id="+String(i).replace(/[\""]/g,'\&#34;').replace(/([ /])/g,'\&#32;')+" class=\"combos\">";
+        					html+="<option value=\"0\">Seleccione "+parametro+"</option>";
+        					/////////llenar combos
+        					html+="</select></br>";
+        				});
+        	        });
+        			$('#selectores').html(html);
+        		}).fail(function(error){
+        			console.log(error);
+        		});
+        	});
+        	
+        	$('#selectores').on('click','#consultar',function(){
+        		var reporteVar = $('#option').val();
+        		var rolVar = $("#selected_rol").html();
+        		var datosJSON = {};
+        		datosJSON.rol = rolVar;
+        		datosJSON.reporte = reporteVar;
+        		var filtro=null;
+        		var valor=null;
+        		$(".combos").each(function(index) {
+        	      //alert(index + ": " + $(this).text());
+        	      filtro=$(this).attr('id');
+        	      valor=$(this).val();
+        	      datosJSON[filtro]=valor;
+        	  });
+        		
+        		xhr = new XMLHttpRequest();
+        	    xhr.open("POST", "generaUrlDinamica", true);
+        	    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        	    
+        	    xhr.send(JSON.stringify(datosJSON));
+        	    xhr.onload = function () {
+        	        if (xhr.readyState === xhr.DONE) {
+        	            if (xhr.status === 200) {
+        	                $('#ventanaReporte').attr('src',xhr.responseText);
+        	            }
+        	        }
+        	    };
+        		$('#sidebar').removeClass('active');
+        	    $('.overlay').fadeOut(1000);
+        	});
+        	 
+           $("#sidebar").mCustomScrollbar({
+               theme: "minimal"
+           });
+        	
+           $('#dismiss, .overlay').on('click', function () {
+               $('#sidebar').removeClass('active');
+               $('.overlay').fadeOut();
+           });
+
+           $('#sidebarCollapse').on('click', function () {
+               $('#sidebar').addClass('active');
+               $('.overlay').fadeIn();
+               $('.collapse.in').toggleClass('in');
+               $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+           });
+        });
+        </script>
+	</body>
 </html>
