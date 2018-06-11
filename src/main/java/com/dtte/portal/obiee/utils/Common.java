@@ -15,21 +15,15 @@ import java.util.Map;
 public class Common {
 
 	public Map<String, String> getVariablesAndValues(String parameters) {
-		System.out.println("Parametros recibidos: " + parameters);
+		
 		Map<String, String> mapaDeValores = new HashMap<String, String>();
 		String[] separarParametros = parameters.split(",");
-		System.out.println("Parametros separados: " + separarParametros[0]);
-
+		
 		for (String parametro : separarParametros) {
-			System.out.println("parametroSeparado: " + parametro);
+			
 			String[] separarValores = parametro.split("\\|");
-			System.out.println("separadosdato longitud: " + separarValores.length);
-			System.out.println("separadosdato: " + separarValores[0]);
-			System.out.println("separadosdato: " + separarValores[1]);
 			mapaDeValores.put(separarValores[0], separarValores[1]);
 		}
-
-		System.out.println("Tamaño del mapa: " + mapaDeValores.size());
 
 		return mapaDeValores;
 
@@ -52,7 +46,7 @@ public class Common {
 
 	public String getDinamicURL(Map<String, Object> map)
 			throws UnsupportedEncodingException, MalformedURLException, URISyntaxException {
-		System.out.println("getDinamicURL");
+		
 		StringBuilder urlDin = new StringBuilder();
 		// PortalPath
 		// urlDin.append("&PortalPath=" + map.get("Path") + map.get("Panel"));
@@ -82,7 +76,7 @@ public class Common {
 				String key = (String) it.next();
 				String value = (String) map.get(key);
 
-				System.out.println("Clave: " + key + " -> Valor: " + value);
+				
 				urlDin.append("&P" + j + "=");
 				urlDin.append(key);
 				urlDin.append("&P" + (j + 1) + "=");

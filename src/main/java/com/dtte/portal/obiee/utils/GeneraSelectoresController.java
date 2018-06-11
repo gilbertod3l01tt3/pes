@@ -42,40 +42,6 @@ public class GeneraSelectoresController extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper(); 
         response.setContentType("application/json"); 
         
-		List<String> Estados = new ArrayList<String>();
-		Estados.add("Aguascalientes");
-		Estados.add("Baja California");
-		Estados.add("Baja California Sur");
-		Estados.add("Campeche");
-		Estados.add("Chiapas");
-		Estados.add("Chihuahua");
-		Estados.add("Ciudad De México");
-		Estados.add("Coahuila De Zaragoza");
-		Estados.add("Colima");
-		Estados.add("Durango");
-		Estados.add("Guanajuato");
-		Estados.add("Guerrero");
-		Estados.add("Hidalgo");
-		Estados.add("Jalisco");
-		Estados.add("México");
-		Estados.add("Michoacán De Ocampo");
-		Estados.add("Morelos");
-		Estados.add("Nayarit");
-		Estados.add("Nuevo Leon");
-		Estados.add("Oaxaca");
-		Estados.add("Puebla");
-		Estados.add("Querétaro");
-		Estados.add("Quintana Roo");
-		Estados.add("San Luis Potosí");
-		Estados.add("Sinaloa");
-		Estados.add("Sonora");
-		Estados.add("Tabasco");
-		Estados.add("Tamaulipas");
-		Estados.add("Tlaxcala");
-		Estados.add("Veracruz De Ignacio De La Llave");
-		Estados.add("Yucatán");
-		Estados.add("Zacatecas");
-		
 		// Se obtienen los datos de la peticion
 		String rol = request.getParameter("rol");
 		String idreporte = request.getParameter("reporte");
@@ -87,7 +53,7 @@ public class GeneraSelectoresController extends HttpServlet {
 		
 		
 		if(parametrosmandatorios == null && parametrosopcionales == null) {
-			//out.println("<input id=\"consultar\" type=\"button\" class=\"btn btn-primary\" value=\"Consultar\"/>");
+			
 			// Se envía la respuesta al cliente
 	        //mapper.writeValue(response.getOutputStream(), reportes);
 		}else {

@@ -4,17 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.dtte.portal.obiee.utils.Utils;
 import com.dtte.portal.obiee.impl.ConfigOBIIEImpl;
 import com.dtte.portal.obiee.impl.ConfigREPORTEImpl;
 import com.dtte.portal.obiee.impl.ConfigROLImpl;
@@ -22,6 +20,7 @@ import com.dtte.portal.obiee.impl.RolREPORTEImpl;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGREPORTE;
 import com.dtte.portal.obiee.model.PORTALBI_CONFIGROL;
 import com.dtte.portal.obiee.model.PORTALBI_ROLREPORTE;
+import com.dtte.portal.obiee.utils.GeneradorURL;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,6 +35,10 @@ public class GeneraURLDinamicaController extends HttpServlet {
 	private RolREPORTEImpl configReporteRolImpl = new RolREPORTEImpl();
 	private ConfigREPORTEImpl configReporte = new ConfigREPORTEImpl();
 
+	public GeneradorURL generadorURL = new GeneradorURL();
+    private HashMap<String, Object> mapaEstaticoBase = new HashMap<>();
+    private HashMap<String, Object> mapaDinamicoBase = new HashMap<>();
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
@@ -52,7 +55,6 @@ public class GeneraURLDinamicaController extends HttpServlet {
 		String json1 = "";
 		if (br != null) {
 			json1 = br.readLine();
-			System.out.println(json1);
 		}
 
 		
@@ -61,17 +63,13 @@ public class GeneraURLDinamicaController extends HttpServlet {
 		// Pasando json string a mapa
 		map = mapper.readValue(json1, new TypeReference<Map<String, String>>() {
 		});
-		System.out.println(map);
 		
 		if (!(map.containsKey("rol") && (map.containsKey("reporte"))))
 			throw new IOException("Parametros mandatorios no se encuentran en el request");
 
 		// Obteniendo el Rol a configurar
 		String nombre = (String) map.get("rol");
-		System.out.println("Obteniendo configuracion: " + nombre);
 		PORTALBI_CONFIGROL rol = rolImpl.ObtainRolByName(nombre);
-		System.out.println("Obteniendo datos desde la base: " + rol.getNombre());
-		// System.out.println("Obteniendo datos desde la base/parametro: " +
 
 		// Obteniendo los parámetros del Reporte
 		String idreporte = (String) map.get("reporte");
@@ -82,62 +80,46 @@ public class GeneraURLDinamicaController extends HttpServlet {
 		// Validar si los parámetros mandatorios se encuentran presentes
 			for (int i = 0; i < mandatorios.length; i++) {
 				String[] separarValores = mandatorios[i].split("\\|");
-				System.out.println(mandatorios[i]);
-				System.out.println(separarValores);
 				if (!map.containsKey(separarValores[0])) {
 					throw new IOException("Parametros mandatorios no se encuentran en el request");
 				}
+				String valor= map.get(separarValores[0]).toString().toUpperCase();
+				
+				mapaDinamicoBase.put(separarValores[0],valor);
 			}
 		}
 		// Agregando la página si existe al mapa de variables
 		PORTALBI_ROLREPORTE pagina = configReporteRolImpl.getConfiguration(rol.getIdConfigrol(),
 				Long.valueOf(idreporte));
 		if (pagina != null && pagina.getPagina() != null) {
-			map.put("Page", pagina.getPagina());
+			mapaDinamicoBase.put(Utils.KEY_PAGE, pagina.getPagina());
 		}
 		// Trayendo configuración de reporte, path y panel
 		PORTALBI_CONFIGREPORTE reporteExtraido = configReporte.getConfiguration(Long.valueOf(idreporte));
-		System.out.println("Panel"+reporteExtraido.getPanel());
+			
+		mapaDinamicoBase.put(Utils.KEY_PATH, reporteExtraido.getPath());
+		mapaDinamicoBase.put(Utils.KEY_PANEL, reporteExtraido.getPanel());
 		
-		map.put("Path", reporteExtraido.getPath());
-		map.put("Panel", reporteExtraido.getPanel());
-
-		
-		// Limpiando el mapa
-		map.remove("rol");
-		map.remove("reporte");
-	
 		// Traer los datos de conexión del Rol
 		Map<String, String> variablesPorReporte = utils.getVariablesAndValues(rol.getParametro());
-		StringBuilder urlEstatica = utils.buildPlainURL(configImpl.ObtainValue("servidor"),
-				configImpl.ObtainValue("PUERTO"), variablesPorReporte.get("NQUser"),
-				variablesPorReporte.get("NQPassword"));
-		System.out.println("URL estatica: " + urlEstatica.toString());
+		
+		mapaEstaticoBase.put(Utils.KEY_HOST, configImpl.ObtainValue("servidor"));
+        mapaEstaticoBase.put(Utils.KEY_PORT, configImpl.ObtainValue("puerto"));
+        mapaEstaticoBase.put(Utils.KEY_USER, variablesPorReporte.get("NQUser"));
+        mapaEstaticoBase.put(Utils.KEY_PASS, variablesPorReporte.get("NQPassword"));
+       
 		String OBIEEAction = configImpl.ObtainValue("ActionOBIEE");
-		System.out.println("Action configurada: " + OBIEEAction);
-		urlEstatica.append("&Action=" + OBIEEAction);
-		// Construyendo la url dinamica
-		String urlDinamica;
-		try {
-			urlDinamica = utils.getDinamicURL(map);
-			System.out.println("URL dinamica: " + urlDinamica);
-			urlEstatica.append(urlDinamica);
-		} catch (URISyntaxException e) {
-			System.out.println(e);
-			e.printStackTrace();
+		//urlEstatica.append("&Action=" + OBIEEAction);
+		mapaEstaticoBase.put(Utils.KEY_ACTION, OBIEEAction);
+		if (map.containsKey("\"Ubicacion\".\"Entidad federativa\"")) {
+			mapaEstaticoBase.put(Utils.KEY_DISABLED_FILTERS, "0");
 		}
-		System.out.println("URL total: " + urlEstatica);
-		URL url= new URL(urlEstatica.toString());
-		String encodedString="";
-		try {
-			URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-			 encodedString=uri.toASCIIString();
-			 System.out.println("URL total encodeada: " + encodedString);
-		} catch (URISyntaxException e) {
-			
-			e.printStackTrace();
-		}
-		out.println(encodedString);
+		
+		StringBuilder resultadoEstatico = generadorURL.GeneradorURLEstatica(mapaEstaticoBase);
+        String resultadoDinamico = generadorURL.GeneradorURLDinamica(mapaDinamicoBase);
+        String resultadoFinal = generadorURL.ConcatenadorEncoder(resultadoEstatico, resultadoDinamico);
+        System.out.println("Url final: "+ resultadoFinal);
+        out.println(resultadoFinal);
 	}
 
 	@Override

@@ -158,7 +158,7 @@
 						"Michoacán De Ocampo",
 						"Morelos",
 						"Nayarit",
-						"Nuevo Leon",
+						"Nuevo León",
 						"Oaxaca",
 						"Puebla",
 						"Querétaro",
@@ -185,7 +185,7 @@
 	        					// Llenar combos
 	        					if (parametro.toLowerCase().includes("estado")) {
 	        						$.each(edos, function (index, edo) {  
-	        							html+="<option value=\"parametro_" + i + "\">" + edo + "</option>";
+	        							html+="<option value="+edo.replace(/([ /])/g,'\&#32;')+">" + edo + "</option>";
 	        						});
 	        					}
 	        					
