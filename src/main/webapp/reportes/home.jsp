@@ -90,17 +90,25 @@
         			if(rolVar == 0){
         				$("#selected_rol").html("Sin seleccionar");
         				$('#reportes').html("");
-        			}else{
-        				$("#selected_rol").html(rolVar);
         			}
+       				$("#selected_rol").html(rolVar);
         			$("#ventanaReporte").attr("src","");
+        			$('#reportes').html("");
+        			$('#selectores').html("");
+        			$('#consultar').hide();
+        			
         	    		           		
-        	   		// Si en vez de por post lo queremos hacer por get, cambiamos el $.post por $.get
         			$.post('generaOpcionesReportes', {
         				rol : rolVar
         			}, function(responseText) {
-        				console.log("respuesta:"+responseText);
-        				$('#reportes').html(responseText);
+        				var html="<p><strong>Reporte a visualizar:</strong></p><select id=\"option\">";
+        				html+="<option value=\"0\">Seleccione una opci&oacute;n</option>";
+        				$.each(responseText, function (index, reporte) {
+        	            	
+        	            	html+="<option value="+reporte.idReporte+">"+reporte.nombreDespliegue+"</option>";
+        	            });
+        				html+="</select></br>";
+        				$('#reportes').html(html);
         			}).fail(function(error){
         	   			console.log(error);
         	   		});
