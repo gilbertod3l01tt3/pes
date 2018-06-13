@@ -11,41 +11,37 @@
 	</resultMap>
 	
 	<select id="selectAll" resultMap = "configRolResultMap">
-	   SELECT * 
-	   FROM PORTALBI_CONFIGROL 
+	   SELECT * FROM desarrollodeloitte3.PORTALBI_CONFIGROL 
 	   ORDER BY ID_CONFIGROL
 	</select>
 	
 	<select id="selectByName" parameterType="String" resultMap="configRolResultMap">
-   		SELECT * 
-   		FROM PORTALBI_CONFIGROL 
+   		SELECT * FROM desarrollodeloitte3.PORTALBI_CONFIGROL 
    		WHERE NOMBRE = #{nombre}
 	</select>
 	
 	<select id="selectById" parameterType="Long" resultMap="configRolResultMap">
-		SELECT * 
-	   	FROM PORTALBI_CONFIGROL 
+		SELECT * FROM desarrollodeloitte3.PORTALBI_CONFIGROL 
 	   	WHERE ID_CONFIGROL = #{id}
 	</select>
 	
 	<select id="selectMaxId" resultType="int">
 		SELECT MAX (ID_CONFIGROL) 
-		FROM PORTALBI_CONFIGROL
+		FROM desarrollodeloitte3.PORTALBI_CONFIGROL
 	</select>
 	
 	<insert id="insert" parameterType="PORTALBI_CONFIGROL">
-	  	INSERT INTO PORTALBI_CONFIGROL (ID_CONFIGROL,NOMBRE,PARAMETRO)	  	
+	  	INSERT INTO desarrollodeloitte3.PORTALBI_CONFIGROL (ID_CONFIGROL,NOMBRE,PARAMETRO)	  	
 	  	VALUES (#{idConfigrol}, #{nombre}, #{parametro})
 	</insert>
 	
 	<delete id='delete' parameterType="Long">
-		DELETE 
-		FROM PORTALBI_CONFIGROL 
+		DELETE FROM desarrollodeloitte3.PORTALBI_CONFIGROL 
 		WHERE ID_CONFIGROL= #{id}
 	</delete>
 	
 	<update id='update' parameterType="PORTALBI_CONFIGROL">
-		UPDATE PORTALBI_CONFIGROL 
+		UPDATE desarrollodeloitte3.PORTALBI_CONFIGROL 
 		set
 		 PARAMETRO=#{parametro},
 		 NOMBRE=#{nombre} 

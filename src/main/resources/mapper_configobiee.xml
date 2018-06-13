@@ -11,41 +11,37 @@
 	</resultMap>
 	
 	<select id="selectAll" resultMap = "configObieeResultMap">
-	   SELECT * 
-	   FROM PORTALBI_CONFIGOBIEE 
+	   SELECT * FROM desarrollodeloitte3.PORTALBI_CONFIGOBIEE 
 	   ORDER BY ID_CONFIGOBIEE
 	</select>
 	
 	<select id="selectValue" parameterType="String" resultType="String">
-   		SELECT VALOR
-   		FROM PORTALBI_CONFIGOBIEE 
+   		SELECT VALOR FROM desarrollodeloitte3.PORTALBI_CONFIGOBIEE 
    		WHERE PARAMETRO=#{parametro}
 	</select>
 	
 	<select id="selectById" parameterType="Long" resultMap="configObieeResultMap">
-		SELECT * 
-	   	FROM PORTALBI_CONFIGOBIEE 
+		SELECT * FROM desarrollodeloitte3.PORTALBI_CONFIGOBIEE 
 	   	WHERE ID_CONFIGOBIEE = #{id}
 	</select>
 	
 	<select id="selectMaxId" resultType="int">
 		SELECT MAX (ID_CONFIGOBIEE) 
-		FROM PORTALBI_CONFIGOBIEE
+		FROM desarrollodeloitte3.PORTALBI_CONFIGOBIEE
 	</select>
 	
 	<insert id="insert" parameterType="PORTALBI_CONFIGOBIEE">
-	  	INSERT INTO PORTALBI_CONFIGOBIEE (ID_CONFIGOBIEE,PARAMETRO,VALOR)	  	
+	  	INSERT INTO desarrollodeloitte3.PORTALBI_CONFIGOBIEE (ID_CONFIGOBIEE,PARAMETRO,VALOR)	  	
 	  	VALUES (#{idConfigobiee}, #{parametro}, #{valor})
 	</insert>
 	
 	<delete id='delete' parameterType="Long">
-		DELETE 
-		FROM PORTALBI_CONFIGOBIEE 
+		DELETE FROM desarrollodeloitte3.PORTALBI_CONFIGOBIEE 
 		WHERE ID_CONFIGOBIEE= #{id}
 	</delete>
 	
 	<update id='update' parameterType="PORTALBI_CONFIGOBIEE">
-		UPDATE PORTALBI_CONFIGOBIEE 
+		UPDATE desarrollodeloitte3.PORTALBI_CONFIGOBIEE 
 		set
 		 PARAMETRO=#{parametro},
 		 VALOR=#{valor} 

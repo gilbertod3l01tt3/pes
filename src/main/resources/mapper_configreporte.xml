@@ -14,41 +14,37 @@
 	</resultMap>
 	
 	<select id="selectAll" resultMap = "configReporteResultMap">
-	   SELECT * 
-	   FROM PORTALBI_CONFIGREPORTE 
+	   SELECT * FROM desarrollodeloitte3.PORTALBI_CONFIGREPORTE 
 	   ORDER BY ID_CONFIGREPORTE
 	</select>
 		
 	<select id="selectById" parameterType="Long" resultMap="configReporteResultMap">
-		SELECT * 
-	   	FROM PORTALBI_CONFIGREPORTE 
+		SELECT * FROM desarrollodeloitte3.PORTALBI_CONFIGREPORTE 
 	   	WHERE ID_CONFIGREPORTE = #{id}
 	</select>
 	
 	<select id="selectMaxId" resultType="int">
 		SELECT MAX (ID_CONFIGREPORTE) 
-		FROM PORTALBI_CONFIGREPORTE
+		FROM desarrollodeloitte3.PORTALBI_CONFIGREPORTE
 	</select>
 	
 	<select id="selectParamById" parameterType="Long" resultMap="configReporteResultMap">
-		SELECT PARAMETRO
-	   	FROM PORTALBI_CONFIGREPORTE 
+		SELECT PARAMETRO FROM desarrollodeloitte3.PORTALBI_CONFIGREPORTE 
 	   	WHERE ID_CONFIGREPORTE = #{id}
 	</select>
 	
 	<insert id="insert" parameterType="PORTALBI_CONFIGREPORTE">
-	  	INSERT INTO PORTALBI_CONFIGREPORTE (ID_CONFIGREPORTE,NOMBRE,ESTATUS,PARAMETRO,PATH,PANEL)	  	
+	  	INSERT INTO desarrollodeloitte3.PORTALBI_CONFIGREPORTE (ID_CONFIGREPORTE,NOMBRE,ESTATUS,PARAMETRO,PATH,PANEL)	  	
 	  	VALUES (#{idConfigreporte}, #{nombre}, #{estatus}, #{parametro}, #{path}, #{panel})
 	</insert>
 	
 	<delete id='delete' parameterType="Long">
-		DELETE 
-		FROM PORTALBI_CONFIGREPORTE
+		DELETE FROM desarrollodeloitte3.PORTALBI_CONFIGREPORTE
 		WHERE ID_CONFIGREPORTE= #{id}
 	</delete>
 	
 	<update id='update' parameterType="PORTALBI_CONFIGREPORTE">
-		UPDATE PORTALBI_CONFIGREPORTE
+		UPDATE desarrollodeloitte3.PORTALBI_CONFIGREPORTE
 		set		 
 		 NOMBRE=#{nombre},
 		 ESTATUS=#{estatus},
