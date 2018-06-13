@@ -180,7 +180,7 @@
 						"Veracruz De Ignacio De La Llave",
 						"Yucatán",
 						"Zacatecas"];
-        			if (responseText !== undefined) {
+        			if (responseText !== undefined && responseText !== "") {
         				$.each(responseText, function (index, parametros) {  
 	        				var keys=Object.keys(parametros);
 	        				//console.log(parametros);
@@ -219,7 +219,7 @@
         		var filtro=null;
         		var valor=null;
         		$(".combos").each(function(index) {
-        	      //alert(index + ": " + $(this).text());
+        	      console.log($(this).attr('id'));
         	      filtro=$(this).attr('id');
         	      valor=$(this).val();
         	      datosJSON[filtro]=valor;

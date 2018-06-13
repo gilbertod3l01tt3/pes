@@ -118,6 +118,8 @@ public class GeneraURLDinamicaController extends HttpServlet {
 		StringBuilder resultadoEstatico = generadorURL.GeneradorURLEstatica(mapaEstaticoBase);
         String resultadoDinamico = generadorURL.GeneradorURLDinamica(mapaDinamicoBase);
         String resultadoFinal = generadorURL.ConcatenadorEncoder(resultadoEstatico, resultadoDinamico);
+        mapaEstaticoBase.clear();
+        mapaDinamicoBase.clear();
         System.out.println("Url final: "+ resultadoFinal);
         out.println(resultadoFinal);
 	}

@@ -87,13 +87,13 @@ public class GeneradorURL implements IGeneradorURL {
     public String ConcatenadorEncoder(StringBuilder urlEstatica, String urlDinamica) {
         if (urlEstatica.length() > 0 && urlDinamica.length() > 0) {
             urlEstatica.append(urlDinamica);
-            System.out.println("URL final: " + urlEstatica.toString());
+            
             try {
                 URL url = new URL(urlEstatica.toString());
                 String encodedString = "";
                 URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
                 encodedString = uri.toASCIIString();
-                System.out.println("URL final encoded: " + encodedString);
+                
                 return encodedString;
             } catch (URISyntaxException e) {
                 e.printStackTrace();
